@@ -30,6 +30,8 @@ public class Entity implements Collideable<Entity>{
         this.dy = dy;
     }
 
-    public void didCollide(Entity other){}
+    public void didCollide(Entity other){
+        return (other.x - this.x)**2 + (other.y - this.y)**2 < (other.r + this.r)**2;
+    }
 
 }
