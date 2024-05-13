@@ -1,1 +1,3 @@
-public interface Collideable {}
+interface Collideable<T> {
+    public void didCollide(T other);
+}
