@@ -2,12 +2,15 @@ import static com.raylib.Raylib.*;
 
 public abstract class Entity implements Collideable<Entity> {
 
+    public static int currentId = 0;
+    public int id;
     public Vector2 pos = new Vector2();
     public Vector2 vel = new Vector2();
     public float angle;
     public float radius;
 
     public Entity(float x, float y, float r) {
+        id = currentId++;
         setPos(x, y);
         this.radius = r;
         this.angle = 0;
@@ -15,10 +18,8 @@ public abstract class Entity implements Collideable<Entity> {
     }
 
     public Entity(float x, float y, float r, float angle) {
-        setPos(x, y);
-        this.radius = r;
+        this(x, y, r);
         this.angle = angle;
-        setVel(0, 0);
     }
 
     public void setPos(float x, float y) {
