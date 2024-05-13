@@ -1,3 +1,3 @@
 interface Collideable<T> {
-    public void didCollide(T other);
+    public boolean didCollide(T other);
 }
