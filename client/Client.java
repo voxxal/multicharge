@@ -5,6 +5,7 @@ import static com.raylib.Raylib.*;
 public class Client {
 
     public static void main(String args[]) throws Exception {
+        World world = new World();
         GameClient gameClient = new GameClient();
         gameClient.startConnection("127.0.0.1", 4200);
         String response = gameClient.sendMessage("hello server");
