@@ -25,14 +25,14 @@ public class Vec2 implements Serializable {
     }
 
     public Vec2 normalize() {
-        float len = vec.mag();
+        float len = mag();
         x /= len;
         y /= len;
         return new Vec2(x, y);
     }
 
     public Vec2 scale(float scalar) {
-        return new Vec2(x * scalar, y * scalar)
+        return new Vec2(x * scalar, y * scalar);
     }
 
     public String toString() {

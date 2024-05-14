@@ -32,11 +32,11 @@ public class Packet implements Serializable {
     public static class Input extends Packet {
 
         public int key;
-        public boolean release;
+        public boolean released;
 
-        public Input(int key, boolean release) {
+        public Input(int key, boolean released) {
             this.key = key;
-            this.release = release;
+            this.released = released;
         }
     }
 

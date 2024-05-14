@@ -14,7 +14,7 @@ public abstract class Entity implements Collideable<Entity>, Serializable {
     public Vec2 vel = new Vec2();
     public float angle;
     public float radius;
-    public float deceleration = 0.5f;
+    public float deceleration = 50;
 
     public Entity(float x, float y, float r) {
         setPos(x, y);

@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameServer {
@@ -51,11 +52,12 @@ public class GameServer {
         private ObjectOutputStream out;
         private ObjectInputStream in;
         private int playerId;
+        private Player player;
         private AtomicBoolean tick = new AtomicBoolean(false);
 
         public ClientHandler(Socket socket) {
             System.out.println("[SERVER] connection from socket");
-            this.clientSocket = socket;
+            clientSocket = socket;
             clientHandlers.add(this);
         }
 
@@ -70,14 +72,18 @@ public class GameServer {
                 if (!player0) {
                     playerId = 0;
                     player0 = true;
-                    world.add(new Player(0, 0, 0));
+                    player = new Player(0, 0, 0);
+                    world.add(player);
                 } else if (!player1) {
                     playerId = 1;
                     player1 = true;
-                    world.add(new Player(0, 0, 1));
+                    player = new Player(0, 0, 1);
+                    world.add(player);
                 } else {
                     out.writeObject(new Packet.Disconnect("lobby full"));
                 }
+
+                (new Inbound()).start();
 
                 out.writeObject(new Packet.Connect(playerId));
 
@@ -102,6 +108,27 @@ public class GameServer {
             } catch (Exception e) {
                 System.out.println("[SERVER] exception: " + e);
                 clientHandlers.remove(this);
+            }
+        }
+
+        private class Inbound extends Thread {
+
+            public void run() {
+                try {
+                    while (running) {
+                        Object next = in.readObject();
+                        if (next instanceof Packet.Input) {
+                            Packet.Input input = (Packet.Input) next;
+                            player.keys.put(input.key, !input.released);
+                        } else {
+                            System.out.println(
+                                "[SERVER] unknown packet " + next.toString()
+                            );
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("[SERVER] exception: " + e);
+                }
             }
         }
     }

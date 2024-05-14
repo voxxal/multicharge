@@ -76,7 +76,7 @@ public class Client {
         private boolean stopped = false;
 
         public void disconnect() throws IOException {
-            out.writeObject(new Disconnect("Goodbye!"));
+            out.writeObject(new Packet.Disconnect("Goodbye!"));
             stopped = true;
             in.close();
             out.close();
