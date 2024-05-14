@@ -9,7 +9,7 @@ public class Client {
 
     private World world;
     private Camera2D camera;
-    private Player player;
+    private int player = -1;
     public ServerHandler serverHandler;
 
     public Client() {
@@ -19,15 +19,26 @@ public class Client {
     }
 
     public void draw() {
-        Vector2 center = new Vector2().x(400).y(300);
-        if (player != null) camera.offset(center).target(player.pos.toRaylib());
+        Player playerObj = (Player) world.entities.get(player);
+        // update player, to be completed.
+        // this needs to send packets to the server indicating movement info
+        // client side also simulates, but after the tick packet arrives, it will be supplanted anyways
+        //
+        // if (IsKeyDown(KEY_LEFT)) playerObj.vel.x -= PLAYER_HOR_SPD*delta;
+        // if (IsKeyDown(KEY_RIGHT)) player->position.x += PLAYER_HOR_SPD*delta;
+        // if (IsKeyDown(KEY_SPACE) && player->canJump)
+
+        Vector2 center = new Vector2().x(600).y(450);
+        if (playerObj != null) camera
+            .offset(center)
+            .target(playerObj.pos.toRaylib());
         BeginDrawing();
         ClearBackground(RAYWHITE);
         BeginMode2D(camera);
         for (Entity e : world.entities.values()) {
             e.draw();
         }
-        DrawText("hii", 0, 0, 20, VIOLET);
+        DrawText("hiii", 0, 0, 20, VIOLET);
         EndMode2D();
         DrawFPS(20, 20);
         EndDrawing();
@@ -37,7 +48,7 @@ public class Client {
         Client client = new Client();
         client.serverHandler.start();
 
-        InitWindow(800, 600, "multicharge");
+        InitWindow(1200, 900, "multicharge");
         SetTargetFPS(60);
 
         while (!WindowShouldClose()) {
@@ -81,19 +92,19 @@ public class Client {
                         break;
                     } else if (next instanceof Packet.Update) {
                         Packet.Update update = (Packet.Update) next;
-                        System.out.println("[CLIENT] update: " + update);
+                        // System.out.println("[CLIENT] update: " + update);
                         for (Entity e : update.creations) {
-                            System.out.println("[CLIENT] created object " + e);
                             world.add(e.id, e);
                             if (
                                 e instanceof Player &&
                                 ((Player) e).playerId == playerId
                             ) {
-                                player = (Player) e;
+                                player = e.id;
                             }
                         }
+                        // yes yes another heap allocation is happening per updated entity
+                        // do i care? no. computers are fast anyways ;)
                         for (Entity e : update.updates) {
-                            System.out.println("[CLIENT] updated object " + e);
                             world.add(e.id, e);
                         }
                     } else {

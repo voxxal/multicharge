@@ -29,14 +29,14 @@ public class GameServer {
 
     private class GameLoop extends Thread {
 
-        private long TICK_DUR = 1000 / 2;
+        private long TICK_DUR = 1000 / 30;
         private long prevTick = System.currentTimeMillis();
 
         public void run() {
             while (running) {
                 long dt = System.currentTimeMillis() - prevTick;
                 if (dt < TICK_DUR) continue;
-                world.update();
+                world.update((float) dt);
                 prevTick += TICK_DUR;
                 for (ClientHandler handler : clientHandlers) {
                     handler.updateClient();
@@ -87,7 +87,8 @@ public class GameServer {
 
                 while (running) {
                     if (tick.getAndSet(false)) {
-                        out.writeObject(new Packet.Update(world));
+                        out.writeUnshared(new Packet.Update(world));
+                        out.reset();
                     }
                 }
 

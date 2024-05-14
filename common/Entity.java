@@ -47,11 +47,11 @@ public abstract class Entity implements Collideable<Entity>, Serializable {
 
     public abstract void draw();
 
-    public void update() {
+    public void update(float dt) {
         // FOP hell :)
         if (vel.mag() < 0.01) return;
-        pos.x += vel.x;
-        pos.y += vel.y;
+        pos.x += vel.x * dt;
+        pos.y += vel.y * dt;
         updated = true;
     }
 }
