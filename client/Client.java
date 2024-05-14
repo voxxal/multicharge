@@ -9,18 +9,24 @@ public class Client {
 
     private World world;
     private Camera2D camera;
+    private Player player;
     public ServerHandler serverHandler;
 
     public Client() {
-        Camera2D camera = new Camera2D().zoom(1);
+        camera = new Camera2D().zoom(1);
+        serverHandler = new ServerHandler();
         world = new World();
     }
 
     public void draw() {
-        // camera.offset(center).target(player.pos);
+        Vector2 center = new Vector2().x(400).y(300);
+        if (player != null) camera.offset(center).target(player.pos.toRaylib());
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        // BeginMode2D(camera);
+        BeginMode2D(camera);
+        for (Entity e : world.entities.values()) {
+            e.draw();
+        }
         DrawText("hii", 0, 0, 20, VIOLET);
         EndMode2D();
         DrawFPS(20, 20);
@@ -28,10 +34,7 @@ public class Client {
     }
 
     public static void main(String args[]) throws Exception {
-        Vector2 center = new Vector2().x(400).y(300);
-
         Client client = new Client();
-        client.serverHandler = new ServerHandler();
         client.serverHandler.start();
 
         InitWindow(800, 600, "multicharge");
@@ -44,7 +47,7 @@ public class Client {
         CloseWindow();
     }
 
-    private static class ServerHandler extends Thread {
+    private class ServerHandler extends Thread {
 
         private Socket clientSocket;
         private ObjectOutputStream out;
@@ -68,13 +71,31 @@ public class Client {
 
                 while (!stopped) {
                     Object next = in.readObject();
-                    if (next instanceof Connect) {
-                        playerId = ((Connect) next).playerId;
-                    } else if (next instanceof Disconnect) {
+                    if (next instanceof Packet.Connect) {
+                        playerId = ((Packet.Connect) next).playerId;
+                    } else if (next instanceof Packet.Disconnect) {
                         System.out.println(
                             "[CLIENT] recieved message to disconnect: " +
-                            ((Disconnect) next).message
+                            ((Packet.Disconnect) next).message
                         );
+                        break;
+                    } else if (next instanceof Packet.Update) {
+                        Packet.Update update = (Packet.Update) next;
+                        System.out.println("[CLIENT] update: " + update);
+                        for (Entity e : update.creations) {
+                            System.out.println("[CLIENT] created object " + e);
+                            world.add(e.id, e);
+                            if (
+                                e instanceof Player &&
+                                ((Player) e).playerId == playerId
+                            ) {
+                                player = (Player) e;
+                            }
+                        }
+                        for (Entity e : update.updates) {
+                            System.out.println("[CLIENT] updated object " + e);
+                            world.add(e.id, e);
+                        }
                     } else {
                         System.out.println(
                             "[CLIENT] unknown packet " + next.toString()
@@ -84,7 +105,9 @@ public class Client {
                 in.close();
                 out.close();
                 clientSocket.close();
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
     }
 }
