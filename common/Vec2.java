@@ -24,11 +24,15 @@ public class Vec2 implements Serializable {
         );
     }
 
-    public Vector2 normalize() {
-        float len = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+    public Vec2 normalize() {
+        float len = vec.mag();
         x /= len;
         y /= len;
-        return new Vector2().x(x).y(y);
+        return new Vec2(x, y);
+    }
+
+    public Vec2 scale(float scalar) {
+        return new Vec2(x * scalar, y * scalar)
     }
 
     public String toString() {
