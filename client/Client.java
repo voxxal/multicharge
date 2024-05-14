@@ -24,12 +24,16 @@ public class Client {
         // this needs to send packets to the server indicating movement info
         // client side also simulates, but after the tick packet arrives, it will be supplanted anyways
         //
-        int[] watchedKeys = { KEY_W, KEY_A, KEY_S, KEY_D }
+        int[] watchedKeys = { KEY_W, KEY_A, KEY_S, KEY_D };
         for (int key : watchedKeys) {
-            if (IsKeyReleased(key)) {
-                serverHandler.send(new Packet.Input(key, true));
-            } else if (IsKeyPressed(key)) {
-                serverHandler.send(new Packet.Input(key, false));
+            try {
+                if (IsKeyReleased(key)) {
+                    serverHandler.send(new Packet.Input(key, true));
+                } else if (IsKeyPressed(key)) {
+                    serverHandler.send(new Packet.Input(key, false));
+                }
+            } catch (Exception e) {
+                System.out.println("[CLIENT] failed to send packet " + e);
             }
         }
 
@@ -80,7 +84,7 @@ public class Client {
         }
 
         public void send(Packet object) throws IOException {
-            out.sendObject(object);
+            out.writeObject(object);
         }
 
         public void run() {
