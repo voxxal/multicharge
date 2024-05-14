@@ -19,7 +19,7 @@ public class Client {
     }
 
     public void draw() {
-        Player playerObj = world.entities.get(player);
+        Player playerObj = (Player) world.entities.get(player);
         // update player, to be completed.
         // this needs to send packets to the server indicating movement info
         // client side also simulates, but after the tick packet arrives, it will be supplanted anyways
