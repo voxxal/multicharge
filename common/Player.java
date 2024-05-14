@@ -12,7 +12,7 @@ public class Player extends Entity {
     }
 
     public Player(float x, float y) {
-        super(x, y, 10);
+        super(x, y, 25);
         vel.x = 2;
     }
 

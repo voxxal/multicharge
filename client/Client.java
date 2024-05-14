@@ -9,7 +9,7 @@ public class Client {
 
     private World world;
     private Camera2D camera;
-    private Player player;
+    private int player = -1;
     public ServerHandler serverHandler;
 
     public Client() {
@@ -20,7 +20,9 @@ public class Client {
 
     public void draw() {
         Vector2 center = new Vector2().x(400).y(300);
-        if (player != null) camera.offset(center).target(player.pos.toRaylib());
+        if (player != -1) camera
+            .offset(center)
+            .target(world.entities.get(player).pos.toRaylib());
         BeginDrawing();
         ClearBackground(RAYWHITE);
         BeginMode2D(camera);
@@ -81,19 +83,17 @@ public class Client {
                         break;
                     } else if (next instanceof Packet.Update) {
                         Packet.Update update = (Packet.Update) next;
-                        System.out.println("[CLIENT] update: " + update);
+                        // System.out.println("[CLIENT] update: " + update);
                         for (Entity e : update.creations) {
-                            System.out.println("[CLIENT] created object " + e);
                             world.add(e.id, e);
                             if (
                                 e instanceof Player &&
                                 ((Player) e).playerId == playerId
                             ) {
-                                player = (Player) e;
+                                player = e.id;
                             }
                         }
                         for (Entity e : update.updates) {
-                            System.out.println("[CLIENT] updated object " + e);
                             world.add(e.id, e);
                         }
                     } else {
