@@ -109,12 +109,6 @@ public class GameServer {
                 clientHandlers.remove(this);
                 if (playerId == 0) player0 = false;
                 else player1 = false;
-                try {
-                    in.close();
-                    out.close();
-                } catch (Exception ex) {
-                    System.out.println("[SERVER] double fault: " + ex);
-                }
             }
         }
 
