@@ -6,5 +6,7 @@ SERV_PID = $!
 java -cp target/client:jars/*:target/common Client &
 CLIENT_PID = $!
 read -p "" < /dev/tty
+echo $SERV_PID
+echo $CLIENT_PID
 kill -9 $SERV_PID
 kill -9 $CLIENT_PID
