@@ -11,6 +11,7 @@ public class Client {
     private Camera2D camera;
     private int player = -1;
     public ServerHandler serverHandler;
+    public Vec2 mouse = new Vec2();
 
     public Client() {
         camera = new Camera2D().zoom(1);
@@ -19,6 +20,7 @@ public class Client {
     }
 
     public void draw() {
+        Vector2 center = new Vector2().x(600).y(450);
         Player playerObj = (Player) world.entities.get(player);
         // update player, to be completed.
         // this needs to send packets to the server indicating movement info
@@ -26,18 +28,27 @@ public class Client {
         //
         int[] watchedKeys = { KEY_W, KEY_A, KEY_S, KEY_D };
         for (int key : watchedKeys) {
-            try {
-                if (IsKeyReleased(key)) {
-                    serverHandler.send(new Packet.Input(key, true));
-                } else if (IsKeyPressed(key)) {
-                    serverHandler.send(new Packet.Input(key, false));
-                }
-            } catch (Exception e) {
-                System.out.println("[CLIENT] failed to send packet " + e);
+            if (IsKeyReleased(key)) {
+                serverHandler.send(new Packet.Input(key, true));
+            } else if (IsKeyPressed(key)) {
+                serverHandler.send(new Packet.Input(key, false));
             }
         }
+        // wow nice hashing function
+        float diff = mouse.x * 5449 + mouse.y * 3109;
+        mouse.x = GetMouseX();
+        mouse.y = GetMouseY();
+        if (diff != mouse.x * 5449 + mouse.y * 3109) {
+            serverHandler.send(
+                new Packet.Turn(
+                    (float) Math.atan2(
+                        mouse.y - center.y(),
+                        mouse.x - center.x()
+                    )
+                )
+            );
+        }
 
-        Vector2 center = new Vector2().x(600).y(450);
         if (playerObj != null) camera
             .offset(center)
             .target(playerObj.pos.toRaylib());
@@ -83,8 +94,13 @@ public class Client {
             clientSocket.close();
         }
 
-        public void send(Packet object) throws IOException {
-            out.writeObject(object);
+        public void send(Packet object) {
+            try {
+                out.writeUnshared(object);
+                out.reset();
+            } catch (Exception e) {
+                System.out.println("[CLIENT] failed to send packet " + e);
+            }
         }
 
         public void run() {

@@ -1,7 +1,6 @@
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameServer {
@@ -120,6 +119,9 @@ public class GameServer {
                         if (next instanceof Packet.Input) {
                             Packet.Input input = (Packet.Input) next;
                             player.keys.put(input.key, !input.released);
+                        } else if (next instanceof Packet.Turn) {
+                            player.angle = (((Packet.Turn) next).angle *
+                                (180 / (float) Math.PI));
                         } else {
                             System.out.println(
                                 "[SERVER] unknown packet " + next.toString()

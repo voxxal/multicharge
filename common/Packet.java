@@ -21,14 +21,6 @@ public class Packet implements Serializable {
         }
     }
 
-    public static class Move extends Packet {
-
-        public int target;
-        public float x;
-        public float y;
-        public float angle;
-    }
-
     public static class Input extends Packet {
 
         public int key;
@@ -37,6 +29,15 @@ public class Packet implements Serializable {
         public Input(int key, boolean released) {
             this.key = key;
             this.released = released;
+        }
+    }
+
+    public static class Turn extends Packet {
+
+        public float angle;
+
+        public Turn(float angle) {
+            this.angle = angle;
         }
     }
 
