@@ -18,7 +18,7 @@ public class Player extends Entity {
     public void draw() {
         DrawCircleV(pos.toRaylib(), radius, new Color().r((byte)10).b((byte)10).g((byte)10).a((byte)255));
         DrawCircleV(pos.toRaylib(), radius-3, new Color().r((byte)255).b((byte)145).g((byte)145).a((byte)255));
-        DrawRectanglePro(new Rectangle().x(pos.x-10).y(pos.y-radius + 4).width(40).height(8), new Vector2().x(30).y(-radius + 12), angle, new Color().r((byte)140).b((byte)136).g((byte)126).a((byte)255));
+        DrawRectanglePro(new Rectangle().x(pos.x).y(pos.y).width(40).height(8), new Vector2().x(0).y(0), angle, new Color().r((byte)140).b((byte)136).g((byte)126).a((byte)255));
     }
 
     public String toString() {
