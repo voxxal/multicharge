@@ -34,12 +34,8 @@ public class Player extends Entity {
             new Color().r((byte) 255).b((byte) 145).g((byte) 145).a((byte) 255)
         );
         DrawRectanglePro(
-            new Rectangle()
-                .x(pos.x - 10)
-                .y(pos.y - radius + 4)
-                .width(40)
-                .height(8),
-            new Vector2().x(-10).y(-radius + 4),
+            new Rectangle().x(pos.x).y(pos.y).width(40).height(8),
+            new Vector2().x(0).y(0),
             angle,
             new Color().r((byte) 140).b((byte) 136).g((byte) 126).a((byte) 255)
         );
