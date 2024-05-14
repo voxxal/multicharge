@@ -24,6 +24,13 @@ public class Vec2 implements Serializable {
         );
     }
 
+    public Vector2 normalize() {
+        float len = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        x /= len;
+        y /= len;
+        return new Vector2().x(x).y(y);
+    }
+
     public String toString() {
         return String.format("<%f, %f>", x, y);
     }
