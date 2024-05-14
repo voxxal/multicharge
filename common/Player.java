@@ -6,7 +6,7 @@ public class Player extends Entity {
     public int playerId = 0;
 
     public Player(float x, float y, int playerId) {
-        super(x, y, 10);
+        super(x, y, 25);
         vel.x = 2;
         this.playerId = playerId;
     }

@@ -36,7 +36,7 @@ public class GameServer {
             while (running) {
                 long dt = System.currentTimeMillis() - prevTick;
                 if (dt < TICK_DUR) continue;
-                world.update();
+                world.update((float) dt);
                 prevTick += TICK_DUR;
                 for (ClientHandler handler : clientHandlers) {
                     handler.updateClient();

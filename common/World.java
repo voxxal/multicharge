@@ -24,9 +24,9 @@ public class World {
         return id;
     }
 
-    public void update() {
+    public void update(float dt) {
         for (Entity e : entities.values()) {
-            e.update();
+            e.update(dt);
         }
     }
 }
