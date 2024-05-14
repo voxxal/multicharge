@@ -107,6 +107,11 @@ public class GameServer {
             } catch (Exception e) {
                 System.out.println("[SERVER] exception: " + e);
                 clientHandlers.remove(this);
+                if (playerId == 0) player0 = false;
+                else player1 = false;
+                in.close();
+                out.close();
+                clientSocket.close();
             }
         }
 
