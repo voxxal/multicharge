@@ -24,9 +24,14 @@ public class Client {
         // this needs to send packets to the server indicating movement info
         // client side also simulates, but after the tick packet arrives, it will be supplanted anyways
         //
-        // if (IsKeyDown(KEY_LEFT)) playerObj.vel.x -= PLAYER_HOR_SPD*delta;
-        // if (IsKeyDown(KEY_RIGHT)) player->position.x += PLAYER_HOR_SPD*delta;
-        // if (IsKeyDown(KEY_SPACE) && player->canJump)
+        int[] watchedKeys = { KEY_W, KEY_A, KEY_S, KEY_D }
+        for (int key : watchedKeys) {
+            if (IsKeyReleased(key)) {
+                serverHandler.send(new Packet.Input(key, true));
+            } else if (IsKeyPressed(key)) {
+                serverHandler.send(new Packet.Input(key, false));
+            }
+        }
 
         Vector2 center = new Vector2().x(600).y(450);
         if (playerObj != null) camera
@@ -72,6 +77,10 @@ public class Client {
             in.close();
             out.close();
             clientSocket.close();
+        }
+
+        public void send(Packet object) throws IOException {
+            out.sendObject(object);
         }
 
         public void run() {

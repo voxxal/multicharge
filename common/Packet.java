@@ -29,6 +29,17 @@ public class Packet implements Serializable {
         public float angle;
     }
 
+    public static class Input extends Packet {
+
+        public int key;
+        public boolean release;
+
+        public Input(int key, boolean release) {
+            this.key = key;
+            this.release = release;
+        }
+    }
+
     public static class Update extends Packet {
 
         public ArrayList<Entity> creations;

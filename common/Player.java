@@ -7,13 +7,13 @@ public class Player extends Entity {
 
     public Player(float x, float y, int playerId) {
         super(x, y, 25);
-        vel.x = 2;
+        vel.x = 100;
         this.playerId = playerId;
     }
 
     public Player(float x, float y) {
         super(x, y, 25);
-        vel.x = 2;
+        vel.x = 100;
     }
 
     public void draw() {
