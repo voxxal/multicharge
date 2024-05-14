@@ -106,12 +106,16 @@ public class GameServer {
                 clientHandlers.remove(this);
             } catch (Exception e) {
                 System.out.println("[SERVER] exception: " + e);
-                clientHandlers.remove(this);
                 if (playerId == 0) player0 = false;
                 else player1 = false;
-                in.close();
-                out.close();
-                clientSocket.close();
+                try {
+                    in.close();
+                    out.close();
+                    clientSocket.close();
+                    clientHandlers.remove(this);
+                } catch (Exception e) {
+                    System.out.println("[SERVER] double fault: " + e);
+                }
             }
         }
 
