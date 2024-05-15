@@ -41,6 +41,17 @@ public class Packet implements Serializable {
         }
     }
 
+    public static class Mouse extends Packet {
+
+        public int button;
+        public boolean released;
+
+        public Mouse(int button, boolean released) {
+            this.button = button;
+            this.released = released;
+        }
+    }
+
     public static class Update extends Packet {
 
         public ArrayList<Entity> creations;

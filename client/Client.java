@@ -25,14 +25,20 @@ public class Client {
         // update player, to be completed.
         // this needs to send packets to the server indicating movement info
         // client side also simulates, but after the tick packet arrives, it will be supplanted anyways
-        //
-        int[] watchedKeys = { KEY_W, KEY_A, KEY_S, KEY_D };
+
+        int[] watchedKeys = { KEY_W, KEY_A, KEY_S, KEY_D, KEY_R };
         for (int key : watchedKeys) {
             if (IsKeyReleased(key)) {
                 serverHandler.send(new Packet.Input(key, true));
             } else if (IsKeyPressed(key)) {
                 serverHandler.send(new Packet.Input(key, false));
             }
+        }
+
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+            serverHandler.send(new Packet.Mouse(MOUSE_BUTTON_LEFT, true));
+        } else if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            serverHandler.send(new Packet.Mouse(MOUSE_BUTTON_LEFT, false));
         }
         // wow nice hashing function
         float diff = mouse.x * 5449 + mouse.y * 3109;
@@ -60,6 +66,9 @@ public class Client {
         }
         DrawText("hiii", 0, 0, 20, VIOLET);
         EndMode2D();
+        if (playerObj != null) {
+            DrawText(playerObj.weapon.toString(), 20, 900 - 40, 20, VIOLET);
+        }
         DrawFPS(20, 20);
         EndDrawing();
     }

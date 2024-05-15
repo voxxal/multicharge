@@ -25,8 +25,9 @@ public class World {
     }
 
     public void update(float dt) {
+        //TODO loop backwards and remove peeps.
         for (Entity e : entities.values()) {
-            e.update(dt);
+            e.update(this, dt);
         }
     }
 }

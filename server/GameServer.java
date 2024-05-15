@@ -122,8 +122,9 @@ public class GameServer {
                             Packet.Input input = (Packet.Input) next;
                             player.keys.put(input.key, !input.released);
                         } else if (next instanceof Packet.Turn) {
-                            player.angle = (((Packet.Turn) next).angle *
-                                (180 / (float) Math.PI));
+                            player.angle = ((Packet.Turn) next).angle;
+                        } else if (next instanceof Packet.Mouse) {
+                            player.shooting = !((Packet.Mouse) next).released;
                         } else {
                             System.out.println(
                                 "[SERVER] unknown packet " + next.toString()

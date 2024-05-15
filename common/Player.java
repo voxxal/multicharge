@@ -10,6 +10,8 @@ public class Player extends Entity {
         Integer,
         Boolean
     >();
+    public boolean shooting;
+    public Weapon weapon = new Weapon.Remington870();
 
     public Player(float x, float y, int playerId) {
         super(x, y, 25);
@@ -36,7 +38,7 @@ public class Player extends Entity {
         DrawRectanglePro(
             new Rectangle().x(pos.x).y(pos.y).width(40).height(8),
             new Vector2().x(0).y(0),
-            angle,
+            angle * (180 / (float) Math.PI),
             new Color().r((byte) 140).b((byte) 136).g((byte) 126).a((byte) 255)
         );
     }
@@ -51,12 +53,17 @@ public class Player extends Entity {
     }
 
     @Override
-    public void update(float dt) {
+    public void update(World world, float dt) {
         if (keys.getOrDefault(KEY_W, false)) vel.y -= speed * dt;
         if (keys.getOrDefault(KEY_A, false)) vel.x -= speed * dt;
         if (keys.getOrDefault(KEY_S, false)) vel.y += speed * dt;
         if (keys.getOrDefault(KEY_D, false)) vel.x += speed * dt;
 
-        super.update(dt);
+        if (keys.getOrDefault(KEY_R, false)) weapon.reload();
+
+        if (shooting) shooting = weapon.shoot(world, this);
+
+        weapon.update(dt);
+        super.update(world, dt);
     }
 }
