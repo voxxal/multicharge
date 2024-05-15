@@ -52,11 +52,14 @@ public class Player extends Entity {
 
     @Override
     public void update(float dt) {
-        if (keys.getOrDefault(KEY_W, false)) vel.y -= speed * dt;
-        if (keys.getOrDefault(KEY_A, false)) vel.x -= speed * dt;
-        if (keys.getOrDefault(KEY_S, false)) vel.y += speed * dt;
-        if (keys.getOrDefault(KEY_D, false)) vel.x += speed * dt;
-
+        if (Math.abs(vel.y) < 500) {
+            if (keys.getOrDefault(KEY_W, false)) vel.y -= speed * dt;
+            if (keys.getOrDefault(KEY_S, false)) vel.y += speed * dt;
+        }
+        if (Math.abs(vel.x) < 500) {
+            if (keys.getOrDefault(KEY_A, false)) vel.x -= speed * dt;
+            if (keys.getOrDefault(KEY_D, false)) vel.x += speed * dt;
+        }
         super.update(dt);
     }
 }
