@@ -14,7 +14,7 @@ public abstract class Entity implements Collideable<Entity>, Serializable {
     public Vec2 vel = new Vec2();
     public float angle;
     public float radius;
-    public float deceleration = 50;
+    public float deceleration = 100;
 
     public Entity(float x, float y, float r) {
         setPos(x, y);
@@ -54,6 +54,7 @@ public abstract class Entity implements Collideable<Entity>, Serializable {
         pos.x += vel.x * dt;
         pos.y += vel.y * dt;
         float newMag = vel.mag() - deceleration * dt;
+
         vel = vel.normalize().scale(newMag);
         updated = true;
     }
