@@ -24,6 +24,18 @@ public class World {
         return id;
     }
 
+    public Entity remove(Entity entity) {
+        return remove(entity.id);
+    }
+
+    public Entity remove(int id) {
+        return entities.put(id, new Tombstone(id));
+    }
+
+    public Entity delete(int id) {
+        return entities.remove(id);
+    }
+
     public void update(float dt) {
         //TODO loop backwards and remove peeps.
         for (Entity e : entities.values()) {

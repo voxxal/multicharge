@@ -56,16 +56,24 @@ public class Packet implements Serializable {
 
         public ArrayList<Entity> creations;
         public ArrayList<Entity> updates;
+        public ArrayList<Integer> removals;
 
         public Update() {
             creations = new ArrayList<Entity>();
             updates = new ArrayList<Entity>();
+            removals = new ArrayList<Integer>();
         }
 
         public Update(World world) {
             creations = new ArrayList<Entity>();
             updates = new ArrayList<Entity>();
+            removals = new ArrayList<Integer>();
             for (Entity entity : world.entities.values()) {
+                if (entity instanceof Tombstone) {
+                    removals.add(entity.id);
+                    world.delete(entity.id);
+                    continue;
+                }
                 if (entity.created) {
                     creations.add(entity);
                     entity.created = false;
@@ -80,9 +88,10 @@ public class Packet implements Serializable {
 
         public String toString() {
             return String.format(
-                "Packet.Update { creations = %s, updates = %s }",
+                "Packet.Update { creations = %s, updates = %s, removals = %s }",
                 creations,
-                updates
+                updates,
+                removals
             );
         }
     }

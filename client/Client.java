@@ -145,6 +145,10 @@ public class Client {
                         for (Entity e : update.updates) {
                             world.add(e.id, e);
                         }
+
+                        for (int id : update.removals) {
+                            world.delete(id);
+                        }
                     } else {
                         System.out.println(
                             "[CLIENT] unknown packet " + next.toString()

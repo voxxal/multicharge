@@ -72,7 +72,8 @@ public abstract class Weapon implements Serializable {
                             player.pos,
                             5,
                             player.angle + (float) Math.random() / 4,
-                            500 + (float) Math.random() * 25
+                            500 + (float) Math.random() * 25,
+                            0.4f
                         )
                     );
                 }
@@ -106,7 +107,8 @@ public abstract class Weapon implements Serializable {
                         player.pos,
                         5,
                         player.angle + (float) Math.random() / 8,
-                        500
+                        500,
+                        2f
                     )
                 );
                 shotTimer = shotCooldown;
