@@ -109,11 +109,13 @@ public class GameServer {
                 out.close();
                 clientSocket.close();
                 clientHandlers.remove(this);
+                world.remove(player);
             } catch (Exception e) {
                 System.out.println("[SERVER] exception: " + e);
                 clientHandlers.remove(this);
                 if (playerId == 0) player0 = false;
                 else player1 = false;
+                world.remove(player);
             }
         }
 
