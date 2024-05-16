@@ -67,4 +67,9 @@ public class Obstacle extends Entity{
         }
     }
 
+    public void update(World world, float dt) {
+        draw();
+        updated = true;
+    }
+
 }
