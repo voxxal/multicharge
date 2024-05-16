@@ -31,7 +31,7 @@ public class Obstacle extends Entity{
         );
     }
 
-    public synchronized void draw() {
+    public void draw() {
         DrawCircleV(
             pos.toRaylib(),
             radius,
@@ -53,7 +53,7 @@ public class Obstacle extends Entity{
             leaves = new Color(50 + (int)Math.random() * 30, 143 + (int)Math.random() * 30, 64 + (int)Math.random() * 30, (int)(Math.random() * 256));
         }
 
-        public synchronized void draw() {
+        public void draw() {
             DrawCircleV(
                 pos.toRaylib(),
                 radius * 2,
@@ -65,11 +65,6 @@ public class Obstacle extends Entity{
                 color.toRaylib()
             );
         }
-    }
-
-    public void update(World world, float dt) {
-        draw();
-        updated = true;
     }
 
 }
