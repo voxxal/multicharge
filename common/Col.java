@@ -19,15 +19,15 @@ public class Col implements Serializable {
     }
 
     public Col(byte r, byte g, byte b) {
-        Col(r, g, b, 255);
+        this(r, g, b, 255);
     }
 
     public Col(int r, int g, int b){
-        Col((byte) r, (byte) g, (byte) b);
+        this((byte) r, (byte) g, (byte) b);
     }
 
     public Col(int r, int g, int b, int a){
-        Col((byte) r, (byte) g, (byte) b, (byte)a);
+        this((byte) r, (byte) g, (byte) b, (byte)a);
     }
 
     public Color toRaylib() {
