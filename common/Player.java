@@ -13,7 +13,7 @@ public class Player extends Entity {
         Boolean
     >();
     public boolean shooting;
-    public Weapon weapon = new Weapon.Sniper();
+    public Weapon weapon = new Weapon.SMG();
 
     public Player(float x, float y, int playerId) {
         super(x, y, 25);
@@ -32,12 +32,28 @@ public class Player extends Entity {
             radius,
             new Color(0xfd, 0xc1, 0x77).toRaylib()
         );
-        DrawRectanglePro(
-            new Rectangle().x(pos.x).y(pos.y).width(40).height(8),
-            new Vector2().x(0).y(0),
-            angle * (180 / (float) Math.PI),
-            new Color(140, 136, 126).toRaylib()
-        );
+        if (weapon.getName().equals("Remington 870")) {
+            DrawRectanglePro(
+                new Rectangle().x(pos.x).y(pos.y).width(40).height(16),
+                new Vector2().x(0).y(0),
+                angle * (180 / (float) Math.PI),
+                new Color(140, 136, 126).toRaylib()
+            );
+        } else if (weapon.getName().equals("Sniper")) {
+            DrawRectanglePro(
+                new Rectangle().x(pos.x).y(pos.y).width(80).height(8),
+                new Vector2().x(0).y(0),
+                angle * (180 / (float) Math.PI),
+                new Color(140, 136, 126).toRaylib()
+            );
+        } else {
+            DrawRectanglePro(
+                new Rectangle().x(pos.x).y(pos.y).width(40).height(8),
+                new Vector2().x(0).y(0),
+                angle * (180 / (float) Math.PI),
+                new Color(140, 136, 126).toRaylib()
+            );
+        }
     }
 
     public String toString() {
