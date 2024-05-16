@@ -5,8 +5,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Player extends Entity {
 
     public int playerId = 0;
-    public int accel = 200;
-    public float decel = 1.1f;
+    public int speed = 200;
+    public float decel = 1.3f;
     public int health = 100;
     public ConcurrentHashMap<Integer, Boolean> keys = new ConcurrentHashMap<
         Integer,
@@ -52,17 +52,13 @@ public class Player extends Entity {
     @Override
     public void update(World world, float dt) {
         // vel = new Vec2();
-        if (keys.getOrDefault(KEY_W, false) && vel.y <= 300) vel.y -=
-        accel * dt;
+        if (keys.getOrDefault(KEY_W, false)) vel.y = -speed;
         else if (vel.y < 0.01) vel.y /= decel;
-        if (keys.getOrDefault(KEY_S, false) && vel.y >= -300) vel.y +=
-        accel * dt;
+        if (keys.getOrDefault(KEY_S, false)) vel.y = speed;
         else if (vel.y > 0.01) vel.y /= decel;
-        if (keys.getOrDefault(KEY_A, false) && vel.x <= 300) vel.x -=
-        accel * dt;
+        if (keys.getOrDefault(KEY_A, false)) vel.x = -speed;
         else if (vel.x < 0.01) vel.x /= decel;
-        if (keys.getOrDefault(KEY_D, false) && vel.x >= -300) vel.x +=
-        accel * dt;
+        if (keys.getOrDefault(KEY_D, false)) vel.x = speed;
         else if (vel.x > 0.01) vel.x /= decel;
 
         if (Math.abs(vel.y) < 0.01) vel.y = 0;
