@@ -30,17 +30,13 @@ public class Player extends Entity {
         DrawCircleV(
             pos.toRaylib(),
             radius,
-            new Color()
-                .r((byte) 0xfd)
-                .g((byte) 0xc1)
-                .b((byte) 0x77)
-                .a((byte) 255)
+            new Color(0xfd, 0xc1, 0x77).toRaylib()
         );
         DrawRectanglePro(
             new Rectangle().x(pos.x).y(pos.y).width(40).height(8),
             new Vector2().x(0).y(0),
             angle * (180 / (float) Math.PI),
-            new Color().r((byte) 140).b((byte) 136).g((byte) 126).a((byte) 255)
+            new Color(140, 136, 126).toRaylib()
         );
     }
 
@@ -56,13 +52,17 @@ public class Player extends Entity {
     @Override
     public void update(World world, float dt) {
         // vel = new Vec2();
-        if (keys.getOrDefault(KEY_W, false) && vel.y <= 300) vel.y -= accel * dt;
+        if (keys.getOrDefault(KEY_W, false) && vel.y <= 300) vel.y -=
+        accel * dt;
         else if (vel.y < 0.01) vel.y /= decel;
-        if (keys.getOrDefault(KEY_S, false) && vel.y >= -300) vel.y += accel * dt;
+        if (keys.getOrDefault(KEY_S, false) && vel.y >= -300) vel.y +=
+        accel * dt;
         else if (vel.y > 0.01) vel.y /= decel;
-        if (keys.getOrDefault(KEY_A, false) && vel.x <= 300) vel.x -= accel * dt;
+        if (keys.getOrDefault(KEY_A, false) && vel.x <= 300) vel.x -=
+        accel * dt;
         else if (vel.x < 0.01) vel.x /= decel;
-        if (keys.getOrDefault(KEY_D, false) && vel.x >= -300) vel.x += accel * dt;
+        if (keys.getOrDefault(KEY_D, false) && vel.x >= -300) vel.x +=
+        accel * dt;
         else if (vel.x > 0.01) vel.x /= decel;
 
         if (Math.abs(vel.y) < 0.01) vel.y = 0;

@@ -56,13 +56,7 @@ public class Client {
             .offset(center)
             .target(playerObj.pos.toRaylib());
         BeginDrawing();
-        ClearBackground(
-            new Color()
-                .r((byte) 0x6e)
-                .g((byte) 0xa0)
-                .b((byte) 0x4d)
-                .a((byte) 0xff)
-        );
+        ClearBackground(new Color(0x6e, 0xa0, 0x4d).toRaylib());
         BeginMode2D(camera);
         for (Entity e : world.entities.values()) {
             e.draw();
