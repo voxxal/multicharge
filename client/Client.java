@@ -22,9 +22,6 @@ public class Client {
     public void draw() {
         Vector2 center = new Vector2().x(600).y(450);
         Player playerObj = (Player) world.entities.get(player);
-        // update player, to be completed.
-        // this needs to send packets to the server indicating movement info
-        // client side also simulates, but after the tick packet arrives, it will be supplanted anyways
 
         int[] watchedKeys = { KEY_W, KEY_A, KEY_S, KEY_D, KEY_R };
         for (int key : watchedKeys) {
@@ -59,15 +56,21 @@ public class Client {
             .offset(center)
             .target(playerObj.pos.toRaylib());
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(
+            new Color()
+                .r((byte) 0x6e)
+                .g((byte) 0xa0)
+                .b((byte) 0x4d)
+                .a((byte) 0xff)
+        );
         BeginMode2D(camera);
         for (Entity e : world.entities.values()) {
             e.draw();
         }
-        DrawText("hiii", 0, 0, 20, VIOLET);
+        DrawText("hiii", 0, 0, 20, RAYWHITE);
         EndMode2D();
         if (playerObj != null) {
-            DrawText(playerObj.weapon.toString(), 20, 900 - 40, 20, VIOLET);
+            DrawText(playerObj.weapon.toString(), 20, 900 - 40, 20, RAYWHITE);
         }
         DrawFPS(20, 20);
         EndDrawing();

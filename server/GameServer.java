@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GameServer {
 
@@ -38,8 +38,9 @@ public class GameServer {
                 if (dt < TICK_DUR) continue;
                 world.update(((float) dt) / 1000);
                 prevTick += TICK_DUR;
+                Packet.Update update = new Packet.Update(world);
                 for (ClientHandler handler : clientHandlers) {
-                    handler.updateClient();
+                    handler.updateClient(update);
                 }
             }
         }
@@ -52,7 +53,9 @@ public class GameServer {
         private ObjectInputStream in;
         private int playerId;
         private Player player;
-        private AtomicBoolean tick = new AtomicBoolean(false);
+        private AtomicReference<Packet.Update> tick = new AtomicReference<
+            Packet.Update
+        >(null);
 
         public ClientHandler(Socket socket) {
             System.out.println("[SERVER] connection from socket");
@@ -60,8 +63,8 @@ public class GameServer {
             clientHandlers.add(this);
         }
 
-        public void updateClient() {
-            tick.set(true);
+        public void updateClient(Packet.Update update) {
+            tick.set(update);
         }
 
         public void run() {
@@ -91,9 +94,11 @@ public class GameServer {
                 out.writeObject(initPacket);
 
                 while (running) {
-                    if (tick.getAndSet(false)) {
-                        out.writeUnshared(new Packet.Update(world));
+                    Packet.Update update = tick.get();
+                    if (update != null) {
+                        out.writeUnshared(update);
                         out.reset();
+                        tick.set(null);
                     }
                 }
 

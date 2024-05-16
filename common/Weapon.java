@@ -53,7 +53,7 @@ public abstract class Weapon implements Serializable {
 
         public Remington870() {
             name = "Remington 870";
-            reloadSpeed = 0.5f;
+            reloadSpeed = 0.8f;
             maxAmmo = 5;
             ammo = 5;
             magazined = false;
@@ -71,9 +71,9 @@ public abstract class Weapon implements Serializable {
                         new Bullet(
                             player.pos,
                             5,
-                            player.angle + (float) Math.random() / 4,
+                            player.angle + ((float) Math.random() - 0.5f) / 2,
                             500 + (float) Math.random() * 25,
-                            0.4f
+                            0.6f
                         )
                     );
                 }
