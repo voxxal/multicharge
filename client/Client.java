@@ -17,6 +17,14 @@ public class Client {
         camera = new Camera2D().zoom(1);
         serverHandler = new ServerHandler();
         world = new World();
+        world.add(new Obstacle.Tree(100, 100));
+        world.add(new Obstacle.Tree(-100, 100));
+        world.add(new Obstacle.Tree(100, -100));
+        world.add(new Obstacle.Tree(-100, -100));
+        world.add(new Obstacle.Rock(200, 100));
+        world.add(new Obstacle.Rock(200, 200));
+        world.add(new Obstacle.Rock(200, -100));
+        world.add(new Obstacle.Rock(200, 0));
     }
 
     public void draw() {
@@ -60,7 +68,6 @@ public class Client {
         BeginMode2D(camera);
         for (Entity e : world.entities.values()) {
             e.draw();
-            System.out.println(e);
         }
         DrawText("hiii", 0, 0, 20, RAYWHITE);
         EndMode2D();
