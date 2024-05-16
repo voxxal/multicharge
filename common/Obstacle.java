@@ -41,7 +41,7 @@ public class Obstacle extends Entity{
 
     public static class Rock extends Obstacle {
         public Rock(float x, float y){
-            super(x, y, 50, ((int)(Math.random()*4)+7)*((int)(Math.random()*4)+7), new Color(0x77 + (int)(Math.random() * 50), 0x77 + (int)(Math.random() * 50), 0x77 + (int)(Math.random() * 50)));
+            super(x, y, 50, ((int)(Math.random()*4)+7)*((int)(Math.random()*4)+7), new Color(0x77 + (int)(Math.random() * 20), 0x77 + (int)(Math.random() * 50), 0x77 + (int)(Math.random() * 50)));
             super.maxhealth = 100;
         }
     }
