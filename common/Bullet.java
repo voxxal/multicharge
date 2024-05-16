@@ -13,7 +13,6 @@ public class Bullet extends Entity {
         float lifetime
     ) {
         super(origin.x, origin.y, radius);
-        deceleration = 0;
         vel.x = (float) Math.cos(angle) * speed;
         vel.y = (float) Math.sin(angle) * speed;
         this.lifetime = lifetime;

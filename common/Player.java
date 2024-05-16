@@ -5,7 +5,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Player extends Entity {
 
     public int playerId = 0;
-    public int speed = 125;
+    public int accel = 200;
+    public float decel = 1.1f;
     public int health = 100;
     public ConcurrentHashMap<Integer, Boolean> keys = new ConcurrentHashMap<
         Integer,
@@ -16,13 +17,13 @@ public class Player extends Entity {
 
     public Player(float x, float y, int playerId) {
         super(x, y, 25);
-        vel.x = 100;
+        vel.x = 0;
         this.playerId = playerId;
     }
 
     public Player(float x, float y) {
         super(x, y, 25);
-        vel.x = 100;
+        vel.x = 0;
     }
 
     public synchronized void draw() {
@@ -55,14 +56,17 @@ public class Player extends Entity {
     @Override
     public void update(World world, float dt) {
         // vel = new Vec2();
-        if (Math.abs(vel.y) < 500) {
-            if (keys.getOrDefault(KEY_W, false)) pos.y -= speed * dt;
-            if (keys.getOrDefault(KEY_S, false)) pos.y += speed * dt;
-        }
-        if (Math.abs(vel.x) < 500) {
-            if (keys.getOrDefault(KEY_A, false)) pos.x -= speed * dt;
-            if (keys.getOrDefault(KEY_D, false)) pos.x += speed * dt;
-        }
+        if (keys.getOrDefault(KEY_W, false) && vel.y <= 300) vel.y -= accel * dt;
+        else if (vel.y < 0.01) vel.y /= decel;
+        if (keys.getOrDefault(KEY_S, false) && vel.y >= -300) vel.y += accel * dt;
+        else if (vel.y > 0.01) vel.y /= decel;
+        if (keys.getOrDefault(KEY_A, false) && vel.x <= 300) vel.x -= accel * dt;
+        else if (vel.x < 0.01) vel.x /= decel;
+        if (keys.getOrDefault(KEY_D, false) && vel.x >= -300) vel.x += accel * dt;
+        else if (vel.x > 0.01) vel.x /= decel;
+
+        if (Math.abs(vel.y) < 0.01) vel.y = 0;
+        if (Math.abs(vel.x) < 0.01) vel.x = 0;
 
         if (keys.getOrDefault(KEY_R, false)) weapon.reload();
 
