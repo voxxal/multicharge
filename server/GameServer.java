@@ -21,6 +21,14 @@ public class GameServer {
         loop = new GameLoop();
         loop.start();
         while (running) new ClientHandler(serverSocket.accept()).start();
+        world.add(new Obstacle.Tree(100, 100));
+        world.add(new Obstacle.Tree(-100, 100));
+        world.add(new Obstacle.Tree(100, -100));
+        world.add(new Obstacle.Tree(-100, -100));
+        world.add(new Obstacle.Rock(200, 100));
+        world.add(new Obstacle.Rock(200, 200));
+        world.add(new Obstacle.Rock(200, -100));
+        world.add(new Obstacle.Rock(200, 0));
     }
 
     public void stop() throws IOException {
