@@ -73,7 +73,8 @@ public abstract class Weapon implements Serializable {
                             5,
                             player.angle + ((float) Math.random() - 0.5f) / 2,
                             500 + (float) Math.random() * 25,
-                            0.6f
+                            0.6f,
+                            12
                         )
                     );
                 }
@@ -108,7 +109,8 @@ public abstract class Weapon implements Serializable {
                         5,
                         player.angle + (float) (Math.random() / 8 - 0.0625),
                         500,
-                        2f
+                        2f,
+                        8
                     )
                 );
                 shotTimer = shotCooldown;
@@ -143,7 +145,8 @@ public abstract class Weapon implements Serializable {
                         5,
                         player.angle + (float) (Math.random() / 10 - 0.05),
                         500,
-                        2f
+                        2f,
+                        10
                     )
                 );
                 shotTimer = shotCooldown;
@@ -153,5 +156,118 @@ public abstract class Weapon implements Serializable {
             }
             return true;
         }
+    }
+
+    public static class Sniper extends Weapon {
+
+        public Sniper() {
+            name = "Sniper";
+            reloadSpeed = 5f;
+            maxAmmo = 1;
+            ammo = 1;
+            magazined = true;
+            shotCooldown = 1f;
+        }
+
+        public void draw(Player player) {}
+
+        public boolean shoot(World world, Player player) {
+            if (ammo > 0 && shotTimer <= 0) {
+                reloading = false;
+                ammo--;
+                world.add(
+                    new Bullet(
+                        player.pos,
+                        3,
+                        player.angle,
+                        2500,
+                        2f,
+                        50
+                    )
+                );
+                shotTimer = shotCooldown;
+            } else if (ammo <= 0) {
+                reload();
+                return false;
+            }
+            return true;
+        }
+    }
+
+    public static class SMG extends Weapon {
+
+        public SMG() {
+            name = "SMG";
+            reloadSpeed = 3f;
+            maxAmmo = 40;
+            ammo = 40;
+            magazined = true;
+            shotCooldown = 0f;
+        }
+
+        public void draw(Player player) {}
+
+        public boolean shoot(World world, Player player) {
+            if (ammo > 0 && shotTimer <= 0) {
+                reloading = false;
+                ammo--;
+                world.add(
+                    new Bullet(
+                        player.pos,
+                        3,
+                        player.angle + (float) (Math.random() - 0.5),
+                        300,
+                        1f,
+                        5
+                    )
+                );
+                shotTimer = shotCooldown;
+            } else if (ammo <= 0) {
+                reload();
+                return false;
+            }
+            return true;
+        }
+    }
+
+
+    public static class Secret extends Weapon {
+
+        public Secret() {
+            name = "Secret";
+            reloadSpeed = 0.1f;
+            maxAmmo = 1000;
+            ammo = 1000;
+            magazined = true;
+            shotCooldown = 0f;
+        }
+
+        public void draw(Player player) {}
+
+        public boolean shoot(World world, Player player) {
+            if (ammo > 0 && shotTimer <= 0) {
+                reloading = false;
+                ammo--;
+                world.add(
+                    new Bullet(
+                        player.pos,
+                        5,
+                        player.angle + (float) (Math.random() - 0.5),
+                        201,
+                        3f,
+                        50
+                    )
+                );
+                shotTimer = shotCooldown;
+            } else if (ammo <= 0) {
+                reload();
+                return false;
+            }
+            return true;
+        }
+    }
+
+    public String getName() {
+        return name;
     }
 }

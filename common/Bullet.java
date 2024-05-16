@@ -4,18 +4,21 @@ import static com.raylib.Raylib.*;
 public class Bullet extends Entity {
 
     public float lifetime;
+    public int damage;
 
     public Bullet(
         Vec2 origin,
         float radius,
         float angle,
         float speed,
-        float lifetime
+        float lifetime,
+        int damage
     ) {
         super(origin.x, origin.y, radius);
         vel.x = (float) Math.cos(angle) * speed;
         vel.y = (float) Math.sin(angle) * speed;
         this.lifetime = lifetime;
+        this.damage = damage;
     }
 
     public void update(World world, float dt) {

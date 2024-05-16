@@ -128,10 +128,13 @@ public class GameServer {
                         if (next instanceof Packet.Input) {
                             Packet.Input input = (Packet.Input) next;
                             player.keys.put(input.key, !input.released);
+                            player.updated = true;
                         } else if (next instanceof Packet.Turn) {
                             player.angle = ((Packet.Turn) next).angle;
+                            player.updated = true;
                         } else if (next instanceof Packet.Mouse) {
                             player.shooting = !((Packet.Mouse) next).released;
+                            player.updated = true;
                         } else {
                             System.out.println(
                                 "[SERVER] unknown packet " + next.toString()
