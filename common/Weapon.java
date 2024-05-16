@@ -154,4 +154,39 @@ public abstract class Weapon implements Serializable {
             return true;
         }
     }
+
+    public static class Sniper extends Weapon {
+
+        public Sniper() {
+            name = "Sniper";
+            reloadSpeed = 5f;
+            maxAmmo = 1;
+            ammo = 1;
+            magazined = true;
+            shotCooldown = 1f;
+        }
+
+        public void draw(Player player) {}
+
+        public boolean shoot(World world, Player player) {
+            if (ammo > 0 && shotTimer <= 0) {
+                reloading = false;
+                ammo--;
+                world.add(
+                    new Bullet(
+                        player.pos,
+                        3,
+                        player.angle,
+                        2500,
+                        2f
+                    )
+                );
+                shotTimer = shotCooldown;
+            } else if (ammo <= 0) {
+                reload();
+                return false;
+            }
+            return true;
+        }
+    }
 }
