@@ -106,7 +106,42 @@ public abstract class Weapon implements Serializable {
                     new Bullet(
                         player.pos,
                         5,
-                        player.angle + (float) Math.random() / 8,
+                        player.angle + (float) (Math.random() / 8 - 0.0625),
+                        500,
+                        2f
+                    )
+                );
+                shotTimer = shotCooldown;
+            } else if (ammo <= 0) {
+                reload();
+                return false;
+            }
+            return true;
+        }
+    }
+
+    public static class Pistol extends Weapon {
+
+        public Pistol() {
+            name = "Pistol";
+            reloadSpeed = 2f;
+            maxAmmo = 15;
+            ammo = 15;
+            magazined = true;
+            shotCooldown = 0.3f;
+        }
+
+        public void draw(Player player) {}
+
+        public boolean shoot(World world, Player player) {
+            if (ammo > 0 && shotTimer <= 0) {
+                reloading = false;
+                ammo--;
+                world.add(
+                    new Bullet(
+                        player.pos,
+                        5,
+                        player.angle + (float) (Math.random() / 10 - 0.05),
                         500,
                         2f
                     )
