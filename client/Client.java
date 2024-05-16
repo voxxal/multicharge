@@ -17,14 +17,6 @@ public class Client {
         camera = new Camera2D().zoom(1);
         serverHandler = new ServerHandler();
         world = new World();
-        world.add(new Obstacle.Tree(100, 100));
-        world.add(new Obstacle.Tree(-100, 100));
-        world.add(new Obstacle.Tree(100, -100));
-        world.add(new Obstacle.Tree(-100, -100));
-        world.add(new Obstacle.Rock(200, 100));
-        world.add(new Obstacle.Rock(200, 200));
-        world.add(new Obstacle.Rock(200, -100));
-        world.add(new Obstacle.Rock(200, 0));
     }
 
     public void draw() {
