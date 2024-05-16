@@ -60,6 +60,7 @@ public class Client {
         BeginMode2D(camera);
         for (Entity e : world.entities.values()) {
             e.draw();
+            System.out.println(e);
         }
         DrawText("hiii", 0, 0, 20, RAYWHITE);
         EndMode2D();

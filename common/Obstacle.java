@@ -67,4 +67,7 @@ public class Obstacle extends Entity{
         }
     }
 
+    public String toString(){
+        return String.format("%2f, %2f, %2f, %2f", health, maxhealth, color, radius);
+    }
 }
