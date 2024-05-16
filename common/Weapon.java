@@ -198,7 +198,7 @@ public abstract class Weapon implements Serializable {
 
         public SMG() {
             name = "SMG";
-            reloadSpeed = 4f;
+            reloadSpeed = 3f;
             maxAmmo = 40;
             ammo = 40;
             magazined = true;
@@ -219,6 +219,43 @@ public abstract class Weapon implements Serializable {
                         300,
                         1f,
                         5
+                    )
+                );
+                shotTimer = shotCooldown;
+            } else if (ammo <= 0) {
+                reload();
+                return false;
+            }
+            return true;
+        }
+    }
+
+
+    public static class Secret extends Weapon {
+
+        public Secret() {
+            name = "Secret";
+            reloadSpeed = 0.1f;
+            maxAmmo = 1000;
+            ammo = 1000;
+            magazined = true;
+            shotCooldown = 0f;
+        }
+
+        public void draw(Player player) {}
+
+        public boolean shoot(World world, Player player) {
+            if (ammo > 0 && shotTimer <= 0) {
+                reloading = false;
+                ammo--;
+                world.add(
+                    new Bullet(
+                        player.pos,
+                        5,
+                        player.angle + (float) (Math.random() - 0.5),
+                        201,
+                        3f,
+                        50
                     )
                 );
                 shotTimer = shotCooldown;

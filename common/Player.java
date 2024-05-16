@@ -32,6 +32,7 @@ public class Player extends Entity {
             radius,
             new Color(0xfd, 0xc1, 0x77).toRaylib()
         );
+        // Draw specific weapon
         if (weapon.getName().equals("Remington 870")) {
             DrawRectanglePro(
                 new Rectangle().x(pos.x).y(pos.y).width(40).height(16),
