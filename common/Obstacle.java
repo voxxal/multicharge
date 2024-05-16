@@ -41,7 +41,7 @@ public class Obstacle extends Entity{
 
     public static class Rock extends Obstacle {
         public Rock(float x, float y){
-            super(x, y, 50, ((int)(Math.random()*4)+7)*((int)(Math.random()*4)+7), new Color(0x67 + (int)(Math.random() * 50), 0x77 + (int)(Math.random() * 50), 0x67 + (int)(Math.random() * 50)));
+            super(x, y, 50, ((int)(Math.random()*4)+7)*((int)(Math.random()*4)+7), new Color(0x77 + (int)(Math.random() * 50), 0x77 + (int)(Math.random() * 50), 0x77 + (int)(Math.random() * 50)));
             super.maxhealth = 100;
         }
     }
@@ -50,7 +50,7 @@ public class Obstacle extends Entity{
         public Color leaves;
         public Tree(float x, float y){
             super(x, y, 30, 10000, new Color(151 + (int)(Math.random() * 20), 93 + (int)(Math.random() * 20), 57 + (int)(Math.random() * 20)));
-            leaves = new Color(50 + (int)Math.random() * 30, 143 + (int)Math.random() * 30, 64 + (int)Math.random() * 30, (int)(Math.random() * 256));
+            leaves = new Color(50 + (int)Math.random() * 30, 143 + (int)Math.random() * 30, 64 + (int)Math.random() * 30, (int)(Math.random() * 128)+63);
         }
 
         public void draw() {
