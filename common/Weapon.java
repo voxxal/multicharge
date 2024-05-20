@@ -231,11 +231,11 @@ public abstract class Weapon implements Serializable {
     }
 
 
-    public static class Secret extends Weapon {
+    public static class Debugger extends Weapon {
 
-        public Secret() {
-            name = "Secret";
-            reloadSpeed = 0.1f;
+        public Debugger() {
+            name = "uuddlrlrba";
+            reloadSpeed = 0.5f;
             maxAmmo = 1000;
             ammo = 1000;
             magazined = true;
@@ -248,16 +248,17 @@ public abstract class Weapon implements Serializable {
             if (ammo > 0 && shotTimer <= 0) {
                 reloading = false;
                 ammo--;
-                world.add(
-                    new Bullet(
-                        player.pos,
-                        5,
-                        player.angle + (float) (Math.random() - 0.5),
-                        201,
-                        3f,
-                        50
-                    )
-                );
+                for(int i = 0; i < 15; i++)
+                    world.add(
+                        new Bullet(
+                            player.pos,
+                            5,
+                            player.angle + (float) (Math.random() - 0.5),
+                            201,
+                            3f,
+                            50
+                        )
+                    );
                 shotTimer = shotCooldown;
             } else if (ammo <= 0) {
                 reload();

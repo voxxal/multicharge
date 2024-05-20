@@ -13,7 +13,7 @@ public class Player extends Entity {
         Boolean
     >();
     public boolean shooting;
-    public Weapon weapon = new Weapon.SMG();
+    public Weapon weapon = new Weapon.Debugger();
 
     public Player(float x, float y, int playerId) {
         super(x, y, 25);
@@ -29,8 +29,13 @@ public class Player extends Entity {
     public synchronized void draw() {
         DrawCircleV(
             pos.toRaylib(),
+            radius + 2,
+            new Color(189, 145, 89).toRaylib()
+        );
+        DrawCircleV(
+            pos.toRaylib(),
             radius,
-            new Color(0xfd, 0xc1, 0x77).toRaylib()
+            new Color(253, 193, 119).toRaylib()
         );
         // Draw specific weapon
         if (weapon.getName().equals("Remington 870")) {
@@ -46,6 +51,20 @@ public class Player extends Entity {
                 new Vector2().x(0).y(0),
                 angle * (180 / (float) Math.PI),
                 new Color(140, 136, 126).toRaylib()
+            );
+        } else if (weapon.getName().equals("uuddlrlrba")) {
+            // Attempt to add outline to weapon test
+            // DrawRectanglePro(
+            //     new Rectangle().x(pos.x - 1).y(pos.y - 1).width(32).height(10),
+            //     new Vector2().x(0).y(0),
+            //     angle * (180 / (float) Math.PI),
+            //     new Color(191, 157, 0).toRaylib()
+            // );
+            DrawRectanglePro(
+                new Rectangle().x(pos.x).y(pos.y).width(30).height(8),
+                new Vector2().x(0).y(0),
+                angle * (180 / (float) Math.PI),
+                new Color(255, 210, 0).toRaylib()
             );
         } else {
             DrawRectanglePro(
