@@ -11,6 +11,7 @@ public abstract class Weapon implements Serializable {
     public boolean magazined;
     public float shotCooldown;
     public float shotTimer;
+    public int len;
 
     public abstract boolean shoot(World world, Player player);
 
@@ -58,6 +59,7 @@ public abstract class Weapon implements Serializable {
             ammo = 5;
             magazined = false;
             shotCooldown = 0.5f;
+            len = 40;
         }
 
         public void draw(Player player) {}
@@ -69,7 +71,7 @@ public abstract class Weapon implements Serializable {
                 for (int i = 0; i < 8; i++) {
                     world.add(
                         new Bullet(
-                            player.pos,
+                            new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
                             5,
                             player.angle + ((float) Math.random() - 0.5f) / 2,
                             500 + (float) Math.random() * 25,
@@ -95,6 +97,7 @@ public abstract class Weapon implements Serializable {
             ammo = 30;
             magazined = true;
             shotCooldown = 0.1f;
+            len = 40;
         }
 
         public void draw(Player player) {}
@@ -105,7 +108,7 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        player.pos,
+                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
                         5,
                         player.angle + (float) (Math.random() / 8 - 0.0625),
                         500,
@@ -131,6 +134,7 @@ public abstract class Weapon implements Serializable {
             ammo = 15;
             magazined = true;
             shotCooldown = 0.3f;
+            len = 30;
         }
 
         public void draw(Player player) {}
@@ -141,7 +145,7 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        player.pos,
+                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
                         5,
                         player.angle + (float) (Math.random() / 10 - 0.05),
                         500,
@@ -167,6 +171,7 @@ public abstract class Weapon implements Serializable {
             ammo = 1;
             magazined = true;
             shotCooldown = 1f;
+            len = 60;
         }
 
         public void draw(Player player) {}
@@ -177,7 +182,7 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        player.pos,
+                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
                         3,
                         player.angle,
                         2500,
@@ -203,6 +208,7 @@ public abstract class Weapon implements Serializable {
             ammo = 40;
             magazined = true;
             shotCooldown = 0f;
+            len = 40;
         }
 
         public void draw(Player player) {}
@@ -213,7 +219,7 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        player.pos,
+                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
                         3,
                         player.angle + (float) (Math.random() - 0.5),
                         300,
@@ -240,6 +246,7 @@ public abstract class Weapon implements Serializable {
             ammo = 1000;
             magazined = true;
             shotCooldown = 0f;
+            len = 60;
         }
 
         public void draw(Player player) {}
@@ -251,7 +258,7 @@ public abstract class Weapon implements Serializable {
                 for(int i = 0; i < 15; i++)
                     world.add(
                         new Bullet(
-                            player.pos,
+                            new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
                             5,
                             player.angle + (float) (Math.random() - 0.5),
                             201,

@@ -13,7 +13,7 @@ public class Player extends Entity {
         Boolean
     >();
     public boolean shooting;
-    public Weapon weapon = new Weapon.Debugger();
+    public Weapon weapon = new Weapon.Ak47();
 
     public Player(float x, float y, int playerId) {
         super(x, y, 25);
@@ -40,28 +40,35 @@ public class Player extends Entity {
         // Draw specific weapon
         if (weapon.getName().equals("Remington 870")) {
             DrawRectanglePro(
-                new Rectangle().x(pos.x).y(pos.y).width(40).height(16),
+                new Rectangle().x(pos.x).y(pos.y).width(weapon.len).height(16),
                 new Vector2().x(0).y(0),
                 angle * (180 / (float) Math.PI),
                 new Color(140, 136, 126).toRaylib()
             );
         } else if (weapon.getName().equals("Sniper")) {
             DrawRectanglePro(
-                new Rectangle().x(pos.x).y(pos.y).width(80).height(8),
+                new Rectangle().x(pos.x).y(pos.y).width(weapon.len).height(8),
+                new Vector2().x(0).y(0),
+                angle * (180 / (float) Math.PI),
+                new Color(140, 136, 126).toRaylib()
+            );
+        } else if (weapon.getName().equals("Pistol")) {
+            DrawRectanglePro(
+                new Rectangle().x(pos.x).y(pos.y).width(weapon.len).height(8),
                 new Vector2().x(0).y(0),
                 angle * (180 / (float) Math.PI),
                 new Color(140, 136, 126).toRaylib()
             );
         } else if (weapon.getName().equals("uuddlrlrba")) {
             // Attempt to add outline to weapon test
-            // DrawRectanglePro(
-            //     new Rectangle().x(pos.x - 1).y(pos.y - 1).width(32).height(10),
-            //     new Vector2().x(0).y(0),
-            //     angle * (180 / (float) Math.PI),
-            //     new Color(191, 157, 0).toRaylib()
-            // );
             DrawRectanglePro(
-                new Rectangle().x(pos.x).y(pos.y).width(30).height(8),
+                new Rectangle().x(pos.x).y(pos.y).width(weapon.len).height(3),
+                new Vector2().x(0).y(0),
+                angle * (180 / (float) Math.PI),
+                new Color(191, 157, 0).toRaylib()
+            );
+            DrawRectanglePro(
+                new Rectangle().x(pos.x).y(pos.y).width(weapon.len / 2).height(6),
                 new Vector2().x(0).y(0),
                 angle * (180 / (float) Math.PI),
                 new Color(255, 210, 0).toRaylib()
