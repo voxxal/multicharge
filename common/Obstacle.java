@@ -40,7 +40,7 @@ public class Obstacle extends Entity {
     public void draw() {
         DrawCircleV(
             pos.toRaylib(),
-            radius * (0.5 + this.health/(2*this.maxhealth)),
+            (float)(radius * (0.5 + this.health/(2*this.maxhealth))),
             color.toRaylib()
         );
     }
@@ -93,12 +93,12 @@ public class Obstacle extends Entity {
         public void draw() {
             DrawCircleV(
                 pos.toRaylib(),
-                radius * (0.5 + this.health/(2*this.maxhealth)) * 2,
+                (float)(radius * (0.5 + this.health/(2*this.maxhealth)) * leavesScale),
                 leaves.toRaylib()
             );
             DrawCircleV(
                 pos.toRaylib(),
-                radius * (0.5 + this.health/(2*this.maxhealth)),
+                (float)(radius * (0.5 + this.health/(2*this.maxhealth))),
                 color.toRaylib()
             );
         }
@@ -106,7 +106,7 @@ public class Obstacle extends Entity {
 
     public String toString() {
         return String.format(
-            "%2f, %2f, %2f, %2f",
+            "%2f, %2f, %s, %2f",
             health,
             maxhealth,
             color,
