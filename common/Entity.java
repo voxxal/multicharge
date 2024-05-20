@@ -45,6 +45,9 @@ public abstract class Entity implements Collideable<Entity>, Serializable {
         );
     }
 
+    // returns if the entity should be removed
+    public abstract boolean onCollide(Entity other);
+
     public abstract void draw();
 
     public void update(World world, float dt) {

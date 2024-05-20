@@ -4,7 +4,7 @@ import static com.raylib.Raylib.*;
 public class Bullet extends Entity {
 
     public float lifetime;
-    public int damage;
+    public float damage;
 
     public Bullet(
         Vec2 origin,
@@ -12,7 +12,7 @@ public class Bullet extends Entity {
         float angle,
         float speed,
         float lifetime,
-        int damage
+        float damage
     ) {
         super(origin.x, origin.y, radius);
         vel.x = (float) Math.cos(angle) * speed;
@@ -30,8 +30,20 @@ public class Bullet extends Entity {
         super.update(world, dt);
     }
 
+    public boolean onCollide(Entity other) {
+        return !(other instanceof Bullet);
+    }
+
     public void draw() {
-        DrawCircleV(pos.toRaylib(), radius + 2, (new Color(131, 116, 72)).toRaylib());
-        DrawCircleV(pos.toRaylib(), radius, (new Color(175, 155, 96)).toRaylib());
+        DrawCircleV(
+            pos.toRaylib(),
+            radius + 2,
+            (new Color(131, 116, 72)).toRaylib()
+        );
+        DrawCircleV(
+            pos.toRaylib(),
+            radius,
+            (new Color(175, 155, 96)).toRaylib()
+        );
     }
 }

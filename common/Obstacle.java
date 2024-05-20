@@ -37,6 +37,14 @@ public class Obstacle extends Entity {
         );
     }
 
+    public boolean onCollide(Entity other) {
+        if (other instanceof Bullet) {
+            health -= ((Bullet) other).damage;
+            if (health < 0) return true;
+        }
+        return false;
+    }
+
     public void draw() {
         DrawCircleV(pos.toRaylib(), radius, color.toRaylib());
     }
@@ -98,7 +106,7 @@ public class Obstacle extends Entity {
 
     public String toString() {
         return String.format(
-            "%2f, %2f, %2f, %2f",
+            "%2f, %2f, %s, %2f",
             health,
             maxhealth,
             color,

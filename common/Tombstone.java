@@ -6,4 +6,8 @@ public class Tombstone extends Entity {
     }
 
     public void draw() {}
+
+    public boolean onCollide(Entity other) {
+        return false;
+    }
 }

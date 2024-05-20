@@ -13,7 +13,7 @@ public class Player extends Entity {
         Boolean
     >();
     public boolean shooting;
-    public Weapon weapon = new Weapon.Ak47();
+    public Weapon weapon = new Weapon.Debugger();
 
     public Player(float x, float y, int playerId) {
         super(x, y, 25);
@@ -68,7 +68,11 @@ public class Player extends Entity {
                 new Color(191, 157, 0).toRaylib()
             );
             DrawRectanglePro(
-                new Rectangle().x(pos.x).y(pos.y).width(weapon.len / 2).height(6),
+                new Rectangle()
+                    .x(pos.x)
+                    .y(pos.y)
+                    .width(weapon.len / 2)
+                    .height(6),
                 new Vector2().x(0).y(0),
                 angle * (180 / (float) Math.PI),
                 new Color(255, 210, 0).toRaylib()
@@ -81,6 +85,14 @@ public class Player extends Entity {
                 new Color(140, 136, 126).toRaylib()
             );
         }
+    }
+
+    public boolean onCollide(Entity other) {
+        if (other instanceof Bullet) {
+            health -= ((Bullet) other).damage;
+            if (health < 0) return true;
+        }
+        return false;
     }
 
     public String toString() {
