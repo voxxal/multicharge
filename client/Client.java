@@ -84,7 +84,8 @@ public class Client {
         DrawText("hiii", 0, 0, 20, RAYWHITE);
         EndMode2D();
         if (playerObj != null) {
-            DrawText(playerObj.weapon.toString(), 20, 900 - 40, 20, RAYWHITE);
+            if (playerObj.weaponNum) DrawText(playerObj.weapon1.toString(), 20, 900 - 40, 20, RAYWHITE);
+            if (!playerObj.weaponNum) DrawText(playerObj.weapon2.toString(), 20, 900 - 40, 20, RAYWHITE);
             DrawRectangle(
                 300,
                 900 - 50,
