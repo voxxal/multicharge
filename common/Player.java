@@ -14,7 +14,7 @@ public class Player extends Entity {
     >();
     public boolean shooting;
     public Weapon weapon1 = new Weapon.Flamethrower();
-    public Weapon weapon2 = new Weapon.SMG();
+    public Weapon weapon2 = new Weapon.Debugger();
     public boolean weaponNum = true;
 
     public Player(float x, float y, int playerId) {
@@ -104,6 +104,10 @@ public class Player extends Entity {
 
     @Override
     public void update(World world, float dt) {
+        if (keys.getOrDefault(KEY_Q, false)) {
+            weaponNum = !weaponNum;
+            keys.put(KEY_Q, false);
+        }
         // vel = new Vec2();
         if (keys.getOrDefault(KEY_W, false)) vel.y = -speed;
         else if (vel.y < 0.01) vel.y /= decel;

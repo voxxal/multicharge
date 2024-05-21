@@ -24,7 +24,7 @@ public class Client {
         Vector2 center = new Vector2().x(600).y(450);
         Player playerObj = (Player) world.entities.get(player);
 
-        int[] watchedKeys = { KEY_W, KEY_A, KEY_S, KEY_D, KEY_R };
+        int[] watchedKeys = { KEY_W, KEY_A, KEY_S, KEY_D, KEY_R, KEY_Q };
         for (int key : watchedKeys) {
             if (IsKeyReleased(key)) {
                 serverHandler.send(new Packet.Input(key, true));
