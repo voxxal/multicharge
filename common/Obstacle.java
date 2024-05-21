@@ -71,7 +71,7 @@ public class Obstacle extends Entity {
                 x,
                 y,
                 50,
-                ((int) (Math.random() * 4) + 7) *
+                10 * ((int) (Math.random() * 4) + 7) *
                 ((int) (Math.random() * 4) + 7),
                 new Color(
                     0x77 + (int) (Math.random() * 20),
@@ -79,7 +79,7 @@ public class Obstacle extends Entity {
                     0x77 + (int) (Math.random() * 20)
                 )
             );
-            super.maxhealth = 100;
+            super.maxhealth = 1000;
             updateRadius();
         }
     }
@@ -94,7 +94,7 @@ public class Obstacle extends Entity {
                 x,
                 y,
                 30,
-                10000,
+                1_000_000,
                 new Color(
                     151 + (int) (Math.random() * 20),
                     93 + (int) (Math.random() * 20),
@@ -127,7 +127,7 @@ public class Obstacle extends Entity {
     public static class Lake extends Obstacle {
 
         public Lake(float x, float y){
-            super(x, y, 500, 10000000, new Color((int)(Math.random() * 80), 100 + (int)(Math.random() * 156), 150));
+            super(x, y, 500, 1_000_000_000, new Color((int)(Math.random() * 20), (int)(Math.random() * 100), 200 + (int)(Math.random() * 40)));
             collideable = false;
         }
 

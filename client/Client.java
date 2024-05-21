@@ -10,6 +10,7 @@ public class Client {
     private World world;
     private Camera2D camera;
     private int player = -1;
+    private float recentDamage = 0;
     public ServerHandler serverHandler;
     public Vec2 mouse = new Vec2();
 
@@ -58,21 +59,21 @@ public class Client {
         BeginDrawing();
         ClearBackground(new Color(0x6e, 0xa0, 0x4d).toRaylib());
         BeginMode2D(camera);
-        for (int x = 0; x < 50; x++) {
+        for (int x = 0; x < 25; x++) {
             DrawLine(
                 x * 100,
                 0,
                 x * 100,
-                5000,
+                2500,
                 new Color(255, 255, 255, 60).toRaylib()
             );
         }
 
-        for (int y = 0; y < 50; y++) {
+        for (int y = 0; y < 25; y++) {
             DrawLine(
                 0,
                 y * 100,
-                5000,
+                2500,
                 y * 100,
                 new Color(255, 255, 255, 60).toRaylib()
             );
@@ -85,6 +86,21 @@ public class Client {
         if (playerObj != null) {
             if (playerObj.weaponNum) DrawText(playerObj.weapon1.toString(), 20, 900 - 40, 20, RAYWHITE);
             if (!playerObj.weaponNum) DrawText(playerObj.weapon2.toString(), 20, 900 - 40, 20, RAYWHITE);
+            DrawRectangle(
+                300,
+                900 - 50,
+                600,
+                40,
+                new Color(80, 80, 80, 80).toRaylib()
+            );
+            float percentLeft = playerObj.health / 100f;
+            DrawRectangle(
+                305,
+                900 - 45,
+                (int) (590f * percentLeft),
+                30,
+                new Color(255, 255, 255, 80).toRaylib()
+            );
         }
         DrawFPS(20, 20);
         EndDrawing();
