@@ -127,7 +127,7 @@ public class Obstacle extends Entity {
     public static class Lake extends Obstacle {
 
         public Lake(float x, float y){
-            super(x, y, 500, 10000000, new Color((int)(Math.random() * 20), (int)(Math.random() * 100), 200 + (int)(Math.random() * 40)));
+            super(x, y, 500, 10000000, new Color((int)(Math.random() * 80), 100 + (int)(Math.random() * 156), 150));
             collideable = false;
         }
 
