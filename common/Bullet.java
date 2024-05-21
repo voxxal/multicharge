@@ -39,24 +39,9 @@ public class Bullet extends Entity {
 
     public void draw() {
         // temporary colour fix
-        int r = 0;
-        int g = 0;
-        int b = 0;
-        if (col.r < 0) {
-            r = 256 + col.r;
-        } else {
-            r = col.r;
-        }
-        if (col.g < 0) {
-            g = 256 + col.g;
-        } else {
-            g = col.g;
-        }
-        if (col.b < 0) {
-            b = 256 + col.b;
-        } else {
-            b = col.b;
-        }
+        int r = col.r & 255;
+        int g = col.g & 255;
+        int b = col.b & 255;
         r *= 0.75;
         g *= 0.75;
         b *= 0.75;
