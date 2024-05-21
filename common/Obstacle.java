@@ -5,14 +5,17 @@ public class Obstacle extends Entity {
     public float health;
     public float maxhealth;
     public Color color;
+    public float maxRadius;
 
     public Obstacle(float x, float y, float r) {
         this(x, y, r, 100);
+        this.maxRadius = r;
         this.color = new Color(255, 255, 255);
     }
 
     public Obstacle(float x, float y, float r, float health) {
         super(x, y, r);
+        this.maxRadius = r;
         this.health = health;
         this.maxhealth = health;
         this.color = new Color(255, 255, 255);
@@ -20,6 +23,7 @@ public class Obstacle extends Entity {
 
     public Obstacle(float x, float y, float r, float health, Color color) {
         super(x, y, r);
+        this.maxRadius = r;
         this.health = health;
         this.maxhealth = health;
         this.color = color;
@@ -31,7 +35,7 @@ public class Obstacle extends Entity {
                 Math.pow(other.pos.y - this.pos.y, 2) <
             Math.pow(
                 other.radius +
-                radius * (0.5 + this.health / (2 * this.maxhealth)),
+                radius,
                 2
             )
         );
@@ -41,6 +45,7 @@ public class Obstacle extends Entity {
         if (other instanceof Bullet) {
             health -= ((Bullet) other).damage;
             if (health < 0) return true;
+            radius = maxRadius * (0.5 + this.health / (2.0 * this.maxhealth));
         }
         return false;
     }
@@ -48,7 +53,7 @@ public class Obstacle extends Entity {
     public void draw() {
         DrawCircleV(
             pos.toRaylib(),
-            (float)(radius * (0.5 + this.health/(2*this.maxhealth))),
+            (float)(radius * (0.5 + this.health/(2.0*this.maxhealth))),
             color.toRaylib()
         );
     }
@@ -64,8 +69,8 @@ public class Obstacle extends Entity {
                 ((int) (Math.random() * 4) + 7),
                 new Color(
                     0x77 + (int) (Math.random() * 20),
-                    0x77 + (int) (Math.random() * 50),
-                    0x77 + (int) (Math.random() * 50)
+                    0x77 + (int) (Math.random() * 20),
+                    0x77 + (int) (Math.random() * 20)
                 )
             );
             super.maxhealth = 100;
@@ -90,9 +95,9 @@ public class Obstacle extends Entity {
                 )
             );
             leaves = new Color(
-                50 + (int) Math.random() * 30,
-                143 + (int) Math.random() * 30,
-                64 + (int) Math.random() * 30,
+                50 + (int) (Math.random() * 60),
+                143 + (int) (Math.random() * 60),
+                64 + (int) (Math.random() * 60),
                 (int) (Math.random() * 128) + 63
             );
             leavesScale = 3;
@@ -101,12 +106,12 @@ public class Obstacle extends Entity {
         public void draw() {
             DrawCircleV(
                 pos.toRaylib(),
-                (float)(radius * (0.5 + this.health/(2*this.maxhealth)) * leavesScale),
+                radius,
                 leaves.toRaylib()
             );
             DrawCircleV(
                 pos.toRaylib(),
-                (float)(radius * (0.5 + this.health/(2*this.maxhealth))),
+                radius,
                 color.toRaylib()
             );
         }
