@@ -34,7 +34,7 @@ public class Bullet extends Entity {
     }
 
     public boolean onCollide(Entity other) {
-        return !(other instanceof Bullet);
+        return !(other instanceof Bullet) && other.collideable;
     }
 
     public void draw() {
