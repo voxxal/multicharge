@@ -13,7 +13,9 @@ public class Player extends Entity {
         Boolean
     >();
     public boolean shooting;
-    public Weapon weapon = new Weapon.RPG();
+    public Weapon weapon1 = new Weapon.Flamethrower();
+    public Weapon weapon2 = new Weapon.SMG();
+    public boolean weaponNum = true;
 
     public Player(float x, float y, int playerId) {
         super(x, y, 25);
@@ -37,26 +39,50 @@ public class Player extends Entity {
             radius,
             new Color(253, 193, 119).toRaylib()
         );
-        DrawRectanglePro(
-            new Rectangle()
-                .x(pos.x)
-                .y(pos.y)
-                .width(weapon.len1)
-                .height(weapon.wid1),
-            new Vector2().x(0).y(0),
-            angle * (180 / (float) Math.PI),
-            weapon.c1.toRaylib()
-        );
-        DrawRectanglePro(
-            new Rectangle()
-                .x(pos.x)
-                .y(pos.y)
-                .width(weapon.len2)
-                .height(weapon.wid2),
-            new Vector2().x(0).y(0),
-            angle * (180 / (float) Math.PI),
-            weapon.c2.toRaylib()
-        );
+        if (weaponNum) {
+            DrawRectanglePro(
+                new Rectangle()
+                    .x(pos.x)
+                    .y(pos.y)
+                    .width(weapon1.len1)
+                    .height(weapon1.wid1),
+                new Vector2().x(0).y(0),
+                angle * (180 / (float) Math.PI),
+                weapon1.c1.toRaylib()
+            );
+            DrawRectanglePro(
+                new Rectangle()
+                    .x(pos.x)
+                    .y(pos.y)
+                    .width(weapon1.len2)
+                    .height(weapon1.wid2),
+                new Vector2().x(0).y(0),
+                angle * (180 / (float) Math.PI),
+                weapon1.c2.toRaylib()
+            );
+        }
+        if (!weaponNum) {
+            DrawRectanglePro(
+                new Rectangle()
+                    .x(pos.x)
+                    .y(pos.y)
+                    .width(weapon2.len1)
+                    .height(weapon2.wid1),
+                new Vector2().x(0).y(0),
+                angle * (180 / (float) Math.PI),
+                weapon2.c1.toRaylib()
+            );
+            DrawRectanglePro(
+                new Rectangle()
+                    .x(pos.x)
+                    .y(pos.y)
+                    .width(weapon2.len2)
+                    .height(weapon2.wid2),
+                new Vector2().x(0).y(0),
+                angle * (180 / (float) Math.PI),
+                weapon2.c2.toRaylib()
+            );
+        }
     }
 
     public boolean onCollide(Entity other) {
@@ -91,11 +117,17 @@ public class Player extends Entity {
         if (Math.abs(vel.y) < 0.01) vel.y = 0;
         if (Math.abs(vel.x) < 0.01) vel.x = 0;
 
-        if (keys.getOrDefault(KEY_R, false)) weapon.reload();
+        if (weaponNum) {
+            if (keys.getOrDefault(KEY_R, false)) weapon1.reload();
+            if (shooting) shooting = weapon1.shoot(world, this);
+            weapon1.update(dt);
+        }
+        if (!weaponNum) {
+            if (keys.getOrDefault(KEY_R, false)) weapon2.reload();
+            if (shooting) shooting = weapon2.shoot(world, this);
+            weapon2.update(dt);
+        }
 
-        if (shooting) shooting = weapon.shoot(world, this);
-
-        weapon.update(dt);
         super.update(world, dt);
     }
 }
