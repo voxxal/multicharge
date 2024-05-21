@@ -17,14 +17,14 @@ public class GameServer {
 
     public void start(int port) throws IOException {
         running = true;
-        world.add(new Obstacle.Tree(200, 200));
-        world.add(new Obstacle.Tree(100, 100));
-        world.add(new Obstacle.Tree(200, 100));
-        world.add(new Obstacle.Tree(100, 300));
-        world.add(new Obstacle.Rock(200, 100));
-        world.add(new Obstacle.Rock(200, 200));
-        world.add(new Obstacle.Rock(200, 400));
-        world.add(new Obstacle.Rock(200, 600));
+        world.add(new Obstacle.Tree(1200, 2000));
+        world.add(new Obstacle.Tree(600, 400));
+        world.add(new Obstacle.Tree(400, 800));
+        world.add(new Obstacle.Tree(100, 1200));
+        world.add(new Obstacle.Rock(2000, 800));
+        world.add(new Obstacle.Rock(1200, 1400));
+        world.add(new Obstacle.Rock(1800, 2800));
+        world.add(new Obstacle.Rock(400, 600));
         serverSocket = new ServerSocket(port);
         loop = new GameLoop();
         loop.start();

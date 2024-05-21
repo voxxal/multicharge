@@ -326,7 +326,7 @@ public abstract class Weapon implements Serializable {
                             player.angle + (float) (Math.random() * 0.5 - 0.25),
                             283,
                             1f,
-                            3f,
+                            1f,
                             new Color(235, 113, 26)
                         )
                     );
@@ -371,7 +371,7 @@ public abstract class Weapon implements Serializable {
                         new Bullet(
                             new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
                             5,
-                            player.angle + (float) (Math.random() - 0.5),
+                            player.angle/* + (float) (Math.random() - 0.5)*/,
                             283,
                             3f,
                             50f,

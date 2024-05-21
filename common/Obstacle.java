@@ -51,10 +51,11 @@ public class Obstacle extends Entity {
     }
 
     public void updateRadius(){
-        radius = maxRadius * (float) (0.5 + this.health / (2.0 * this.maxhealth));
+        this.radius = maxRadius * (float) (0.5f + this.health / (2.0f * this.maxhealth));
     }
 
     public void draw() {
+        updateRadius();
         DrawCircleV(
             pos.toRaylib(),
             radius,
