@@ -46,7 +46,11 @@ public class Obstacle extends Entity {
     }
 
     public void draw() {
-        DrawCircleV(pos.toRaylib(), radius, color.toRaylib());
+        DrawCircleV(
+            pos.toRaylib(),
+            (float)(radius * (0.5 + this.health/(2*this.maxhealth))),
+            color.toRaylib()
+        );
     }
 
     public static class Rock extends Obstacle {
@@ -97,10 +101,14 @@ public class Obstacle extends Entity {
         public void draw() {
             DrawCircleV(
                 pos.toRaylib(),
-                radius * leavesScale,
+                (float)(radius * (0.5 + this.health/(2*this.maxhealth)) * leavesScale),
                 leaves.toRaylib()
             );
-            DrawCircleV(pos.toRaylib(), radius, color.toRaylib());
+            DrawCircleV(
+                pos.toRaylib(),
+                (float)(radius * (0.5 + this.health/(2*this.maxhealth))),
+                color.toRaylib()
+            );
         }
     }
 
