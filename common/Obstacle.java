@@ -45,6 +45,7 @@ public class Obstacle extends Entity {
         if (other instanceof Bullet) {
             health -= ((Bullet) other).damage;
             updateRadius();
+            updated = true;
             if (health < 0) return true;
         }
         return false;
