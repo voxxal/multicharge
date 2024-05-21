@@ -44,16 +44,20 @@ public class Obstacle extends Entity {
     public boolean onCollide(Entity other) {
         if (other instanceof Bullet) {
             health -= ((Bullet) other).damage;
+            updateRadius();
             if (health < 0) return true;
-            radius = maxRadius * (0.5 + this.health / (2.0 * this.maxhealth));
         }
         return false;
+    }
+
+    public void updateRadius(){
+        radius = maxRadius * (float) (0.5 + this.health / (2.0 * this.maxhealth));
     }
 
     public void draw() {
         DrawCircleV(
             pos.toRaylib(),
-            (float)(radius * (0.5 + this.health/(2.0*this.maxhealth))),
+            radius,
             color.toRaylib()
         );
     }
@@ -74,6 +78,7 @@ public class Obstacle extends Entity {
                 )
             );
             super.maxhealth = 100;
+            updateRadius();
         }
     }
 
@@ -106,7 +111,7 @@ public class Obstacle extends Entity {
         public void draw() {
             DrawCircleV(
                 pos.toRaylib(),
-                radius,
+                radius * leavesScale,
                 leaves.toRaylib()
             );
             DrawCircleV(
