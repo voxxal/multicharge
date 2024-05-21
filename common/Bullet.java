@@ -34,7 +34,10 @@ public class Bullet extends Entity {
     }
 
     public void draw() {
-        DrawCircleV(pos.toRaylib(), radius + 2, (new Color((int) (col.r * 0.75f), (int) (col.g * 0.75f) , (int) (col.b * 0.75f))).toRaylib());
+        System.out.println(col.r);
+        System.out.println(col.g);
+        System.out.println(col.b);
+        DrawCircleV(pos.toRaylib(), radius + 2, (new Color((int) (col.r * 0.75f), (int) (col.g * 0.75f), (int) (col.b * 0.75f))).toRaylib());
         DrawCircleV(pos.toRaylib(), radius, col.toRaylib());
     }
 }
