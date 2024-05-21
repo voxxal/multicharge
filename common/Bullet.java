@@ -34,10 +34,18 @@ public class Bullet extends Entity {
     }
 
     public void draw() {
-        System.out.println(col.r);
-        System.out.println(col.g);
-        System.out.println(col.b);
-        DrawCircleV(pos.toRaylib(), radius + 2, (new Color((int) (col.r * 0.75f), (int) (col.g * 0.75f), (int) (col.b * 0.75f))).toRaylib());
+        // temporary colour fix
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        if (col.r < 0) { r = 256 + col.r; } else { r = col.r; }
+        if (col.g < 0) { g = 256 + col.g; } else { g= col.g; }
+        if (col.b < 0) { b = 256 + col.b; } else { b = col.b; }
+        r *= 0.75;
+        g *= 0.75;
+        b *= 0.75;
+
+        DrawCircleV(pos.toRaylib(), radius + 2, (new Color(r, g, b)).toRaylib());
         DrawCircleV(pos.toRaylib(), radius, col.toRaylib());
     }
 }
