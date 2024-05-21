@@ -45,6 +45,7 @@ public class Obstacle extends Entity {
         if (other instanceof Bullet) {
             health -= ((Bullet) other).damage;
             updateRadius();
+            updated = true;
             if (health < 0) return true;
         }
         return false;
@@ -55,6 +56,7 @@ public class Obstacle extends Entity {
     }
 
     public void draw() {
+        updateRadius();
         DrawCircleV(
             pos.toRaylib(),
             radius,
@@ -124,10 +126,8 @@ public class Obstacle extends Entity {
 
     public static class Lake extends Obstacle {
 
-        public Color water;
-
         public Lake(float x, float y){
-            super(x, y, 500, Float.POSITIVE_INFINITY, new Color((int)(Math.random() * 20), (int)(Math.random() * 100), 200 + (int)(Math.random() * 40)));
+            super(x, y, 500, 10000000, new Color((int)(Math.random() * 80), 100 + (int)(Math.random() * 156), 150));
             collideable = false;
         }
 

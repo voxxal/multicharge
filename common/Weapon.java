@@ -326,7 +326,7 @@ public abstract class Weapon implements Serializable {
                             player.angle + (float) (Math.random() * 0.5 - 0.25),
                             283,
                             1f,
-                            3f,
+                            1f,
                             new Color(235, 113, 26)
                         )
                     );
@@ -338,6 +338,54 @@ public abstract class Weapon implements Serializable {
             return true;
         }
     }
+
+//  -----------------------
+//            RPG
+//  -----------------------
+
+public static class RPG extends Weapon {
+
+    public RPG() {
+        name = "RPG";
+        reloadSpeed = 8f;
+        maxAmmo = 1;
+        ammo = 1;
+        magazined = true;
+        shotCooldown = 2f;
+        len1 = 80;
+        len2 = 40;
+        wid1 = 16;
+        wid2 = 8;
+        c1 = new Color(105, 102, 94);
+        c2 = new Color(79, 76, 70);
+    }
+
+    public void draw(Player player) {}
+
+    public boolean shoot(World world, Player player) {
+        if (ammo > 0 && shotTimer <= 0) {
+            reloading = false;
+            ammo--;
+            for(int i = 0; i < 5; i++)
+                world.add(
+                    new Bullet(
+                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
+                        16,
+                        player.angle,
+                        500,
+                        5f,
+                        20f,
+                        new Color(53, 69, 48)
+                    )
+                );
+            shotTimer = shotCooldown;
+        } else if (ammo <= 0) {
+            reload();
+            return false;
+        }
+        return true;
+    }
+}
 
 //  ----------------------------
 //            Debugger
