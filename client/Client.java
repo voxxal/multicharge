@@ -58,6 +58,25 @@ public class Client {
         BeginDrawing();
         ClearBackground(new Color(0x6e, 0xa0, 0x4d).toRaylib());
         BeginMode2D(camera);
+        for (int x = 0; x < 50; x++) {
+            DrawLine(
+                x * 100,
+                0,
+                x * 100,
+                5000,
+                new Color(255, 255, 255, 60).toRaylib()
+            );
+        }
+
+        for (int y = 0; y < 50; y++) {
+            DrawLine(
+                0,
+                y * 100,
+                5000,
+                y * 100,
+                new Color(255, 255, 255, 60).toRaylib()
+            );
+        }
         for (Entity e : world.entities.values()) {
             e.draw();
         }

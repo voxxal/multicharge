@@ -50,7 +50,7 @@ public class World {
             // generate spatial partition :D
             int cx = (int) (e.pos.x / 100);
             int cy = (int) (e.pos.y / 100);
-            int range = (int) ((e.radius + 50) / 100);
+            int range = (int) ((e.radius + 50) / 100) + 1;
             for (int y = cy - range; y <= cy + range; y++) {
                 for (int x = cx - range; x <= cx + range; x++) {
                     if (x > 0 && y > 0 && x < 50 && y < 50) spatialPartition
