@@ -51,7 +51,7 @@ public class Obstacle extends Entity {
     }
 
     public void updateRadius(){
-        radius = maxRadius * (float) (0.5 + this.health / (2.0 * this.maxhealth));
+        this.radius = maxRadius * (float) (0.5 + this.health / (2.0 * this.maxhealth));
     }
 
     public void draw() {
@@ -119,6 +119,20 @@ public class Obstacle extends Entity {
                 radius,
                 color.toRaylib()
             );
+        }
+    }
+
+    public static class Lake extends Obstacle {
+
+        public Color water;
+
+        public Lake(float x, float y){
+            super(x, y, 500, Float.POSITIVE_INFINITY, new Color((int)(Math.random() * 20), (int)(Math.random() * 100), 200 + (int)(Math.random() * 40)));
+            collideable = false;
+        }
+
+        public boolean onCollide(Entity other){
+            return false;
         }
     }
 
