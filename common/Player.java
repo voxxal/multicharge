@@ -7,7 +7,7 @@ public class Player extends Entity {
     public int playerId = 0;
     public int speed = 200;
     public float decel = 1.3f;
-    public int health = 100;
+    public int health = 75;
     public ConcurrentHashMap<Integer, Boolean> keys = new ConcurrentHashMap<
         Integer,
         Boolean

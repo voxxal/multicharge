@@ -39,9 +39,9 @@ public class World {
 
     public void update(float dt) {
         spatialPartition = new ArrayList<ArrayList<LinkedList<Entity>>>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 25; i++) {
             spatialPartition.add(new ArrayList<LinkedList<Entity>>());
-            for (int j = 0; j < 50; j++) {
+            for (int j = 0; j < 25; j++) {
                 spatialPartition.get(i).add(new LinkedList<Entity>());
             }
         }
@@ -50,10 +50,17 @@ public class World {
             // generate spatial partition :D
             int cx = (int) (e.pos.x / 100);
             int cy = (int) (e.pos.y / 100);
-            int range = (int) ((e.radius + 50) / 100) + 1;
-            for (int y = cy - range; y <= cy + range; y++) {
-                for (int x = cx - range; x <= cx + range; x++) {
-                    if (x > 0 && y > 0 && x < 50 && y < 50) spatialPartition
+            int rangex =
+                (int) ((e.pos.x + e.radius) / 100) -
+                (int) ((e.pos.x - e.radius) / 100) +
+                1;
+            int rangey =
+                (int) ((e.pos.y + e.radius) / 100) -
+                (int) ((e.pos.y - e.radius) / 100) +
+                1;
+            for (int y = cy - rangey; y <= cy + rangey; y++) {
+                for (int x = cx - rangex; x <= cx + rangex; x++) {
+                    if (x > 0 && y > 0 && x < 25 && y < 25) spatialPartition
                         .get(y)
                         .get(x)
                         .add(e);
@@ -63,13 +70,25 @@ public class World {
 
         for (ArrayList<LinkedList<Entity>> row : spatialPartition) {
             for (LinkedList<Entity> chunk : row) {
-                for (Entity entity : chunk) {
-                    for (Entity other : chunk) {
+                for (int i = 0; i < chunk.size(); i++) {
+                    Entity entity = chunk.get(i);
+                    for (int j = 0; j < chunk.size(); j++) {
+                        Entity other = chunk.get(j);
+                        if (j > i) break;
                         if (entity.didCollide(other)) {
                             if (entity.onCollide(other)) remove(entity);
+                            if (other.onCollide(entity)) remove(other);
                         }
                     }
                 }
+                // for (Entity entity : chunk) {
+                //     for (Entity other : chunk) {
+                //         if (entity.didCollide(other)) {
+                //             if (entity.onCollide(other)) remove(entity);
+                //             if (other.onCollide(entity)) remove(other);
+                //         }
+                //     }
+                // }
             }
         }
     }
