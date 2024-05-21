@@ -7,7 +7,7 @@ public class Player extends Entity {
     public int playerId = 0;
     public int speed = 200;
     public float decel = 1.3f;
-    public int health = 75;
+    public int health = 100;
     public ConcurrentHashMap<Integer, Boolean> keys = new ConcurrentHashMap<
         Integer,
         Boolean
@@ -86,7 +86,10 @@ public class Player extends Entity {
     }
 
     public boolean onCollide(Entity other) {
-        if (other instanceof Bullet) {
+        // TODO this is a bandaid fix for multiple collisions, stop being lazy me :)
+        if (other instanceof Bullet && !((Bullet) other).hit) {
+            ((Bullet) other).hit = true;
+            updated = true;
             health -= ((Bullet) other).damage;
             if (health < 0) return true;
         }
@@ -133,5 +136,6 @@ public class Player extends Entity {
         }
 
         super.update(world, dt);
+        updated = true;
     }
 }

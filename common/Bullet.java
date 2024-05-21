@@ -6,6 +6,7 @@ public class Bullet extends Entity {
     public float lifetime;
     public float damage;
     public Color col;
+    public boolean hit;
 
     public Bullet(
         Vec2 origin,
@@ -25,6 +26,7 @@ public class Bullet extends Entity {
     }
 
     public void update(World world, float dt) {
+        hit = false;
         lifetime -= dt;
         if (lifetime <= 0) {
             world.remove(this);
