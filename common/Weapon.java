@@ -11,7 +11,12 @@ public abstract class Weapon implements Serializable {
     public boolean magazined;
     public float shotCooldown;
     public float shotTimer;
-    public int len;
+    public int len1;
+    public int len2;
+    public int wid1;
+    public int wid2;
+    public Color c1;
+    public Color c2;
 
     public abstract boolean shoot(World world, Player player);
 
@@ -50,6 +55,10 @@ public abstract class Weapon implements Serializable {
         );
     }
 
+//  --------------------------------
+//            Remington870
+//  --------------------------------
+
     public static class Remington870 extends Weapon {
 
         public Remington870() {
@@ -59,7 +68,12 @@ public abstract class Weapon implements Serializable {
             ammo = 5;
             magazined = false;
             shotCooldown = 0.5f;
-            len = 40;
+            len1 = 40;
+            len2 = 30;
+            wid1 = 16;
+            wid2 = 20;
+            c1 = new Color(140, 136, 126);
+            c2 = new Color(105, 102, 94);
         }
 
         public void draw(Player player) {}
@@ -71,12 +85,13 @@ public abstract class Weapon implements Serializable {
                 for (int i = 0; i < 8; i++) {
                     world.add(
                         new Bullet(
-                            new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
+                            new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
                             5,
                             player.angle + ((float) Math.random() - 0.5f) / 2,
                             500 + (float) Math.random() * 25,
                             0.6f,
-                            12
+                            12f,
+                            new Color(175, 155, 96)
                         )
                     );
                 }
@@ -88,6 +103,10 @@ public abstract class Weapon implements Serializable {
         }
     }
 
+//  ------------------------
+//            AK47
+//  ------------------------
+
     public static class Ak47 extends Weapon {
 
         public Ak47() {
@@ -97,7 +116,12 @@ public abstract class Weapon implements Serializable {
             ammo = 30;
             magazined = true;
             shotCooldown = 0.1f;
-            len = 40;
+            len1 = 40;
+            len2 = 20;
+            wid1 = 8;
+            wid2 = 6;
+            c1 = new Color(140, 136, 126);
+            c2 = new Color(105,74,1);
         }
 
         public void draw(Player player) {}
@@ -108,12 +132,13 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
+                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
                         5,
                         player.angle + (float) (Math.random() / 8 - 0.0625),
                         500,
                         2f,
-                        8
+                        8f,
+                        new Color(175, 155, 96)
                     )
                 );
                 shotTimer = shotCooldown;
@@ -124,6 +149,10 @@ public abstract class Weapon implements Serializable {
             return true;
         }
     }
+
+//  --------------------------
+//            Pistol
+//  --------------------------
 
     public static class Pistol extends Weapon {
 
@@ -134,7 +163,12 @@ public abstract class Weapon implements Serializable {
             ammo = 15;
             magazined = true;
             shotCooldown = 0.3f;
-            len = 30;
+            len1 = 30;
+            len2 = 6;
+            wid1 = 8;
+            wid2 = 6;
+            c1 = new Color(140, 136, 126);
+            c2 = new Color(105, 102, 94);
         }
 
         public void draw(Player player) {}
@@ -145,12 +179,13 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
+                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
                         5,
                         player.angle + (float) (Math.random() / 10 - 0.05),
                         500,
                         2f,
-                        10
+                        10f,
+                        new Color(137, 97, 78)
                     )
                 );
                 shotTimer = shotCooldown;
@@ -161,17 +196,26 @@ public abstract class Weapon implements Serializable {
             return true;
         }
     }
+
+//  --------------------------
+//            Sniper
+//  --------------------------
 
     public static class Sniper extends Weapon {
 
         public Sniper() {
             name = "Sniper";
-            reloadSpeed = 5f;
+            reloadSpeed = 4f;
             maxAmmo = 1;
             ammo = 1;
             magazined = true;
             shotCooldown = 1f;
-            len = 60;
+            len1 = 60;
+            len2 = 40;
+            wid1 = 5;
+            wid2 = 7;
+            c1 = new Color(105, 102, 94);
+            c2 = new Color(79, 76, 70);
         }
 
         public void draw(Player player) {}
@@ -182,12 +226,13 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
+                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
                         3,
                         player.angle,
                         2500,
                         2f,
-                        50
+                        50f,
+                        new Color(36, 36, 36)
                     )
                 );
                 shotTimer = shotCooldown;
@@ -198,6 +243,10 @@ public abstract class Weapon implements Serializable {
             return true;
         }
     }
+
+//  -----------------------
+//            SMG
+//  -----------------------
 
     public static class SMG extends Weapon {
 
@@ -208,7 +257,12 @@ public abstract class Weapon implements Serializable {
             ammo = 40;
             magazined = true;
             shotCooldown = 0f;
-            len = 40;
+            len1 = 45;
+            len2 = 40;
+            wid1 = 3;
+            wid2 = 9;
+            c1 = new Color(105, 102, 94);
+            c2 = new Color(79, 76, 70);
         }
 
         public void draw(Player player) {}
@@ -219,12 +273,13 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
+                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
                         3,
                         player.angle + (float) (Math.random() - 0.5),
                         300,
                         1f,
-                        5
+                        5f,
+                        new Color(173, 164, 140)
                     )
                 );
                 shotTimer = shotCooldown;
@@ -236,6 +291,57 @@ public abstract class Weapon implements Serializable {
         }
     }
 
+//  --------------------------------
+//            Flamethrower
+//  --------------------------------
+
+    public static class Flamethrower extends Weapon {
+
+        public Flamethrower() {
+            name = "Flamethrower";
+            reloadSpeed = 3f;
+            maxAmmo = 150;
+            ammo = 150;
+            magazined = true;
+            shotCooldown = 0f;
+            len1 = 40;
+            len2 = 15;
+            wid1 = 6;
+            wid2 = 8;
+            c1 = new Color(140, 136, 126);
+            c2 = new Color(105,74,1);
+        }
+
+        public void draw(Player player) {}
+
+        public boolean shoot(World world, Player player) {
+            if (ammo > 0 && shotTimer <= 0) {
+                reloading = false;
+                ammo--;
+                for(int i = 0; i < 3; i++)
+                    world.add(
+                        new Bullet(
+                            new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
+                            2,
+                            player.angle + (float) (Math.random() * 0.5 - 0.25),
+                            283,
+                            1f,
+                            3f,
+                            new Color(235, 113, 26)
+                        )
+                    );
+                shotTimer = shotCooldown;
+            } else if (ammo <= 0) {
+                reload();
+                return false;
+            }
+            return true;
+        }
+    }
+
+//  ----------------------------
+//            Debugger
+//  ----------------------------
 
     public static class Debugger extends Weapon {
 
@@ -246,7 +352,12 @@ public abstract class Weapon implements Serializable {
             ammo = 1000;
             magazined = true;
             shotCooldown = 0f;
-            len = 60;
+            len1 = 60;
+            len2 = 30;
+            wid1 = 3;
+            wid2 = 6;
+            c1 = new Color(191, 157, 0);
+            c2 = new Color(255, 210, 0);
         }
 
         public void draw(Player player) {}
@@ -258,12 +369,13 @@ public abstract class Weapon implements Serializable {
                 for(int i = 0; i < 15; i++)
                     world.add(
                         new Bullet(
-                            new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len), player.pos.y + (float) (Math.sin(player.angle) * len)),
+                            new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
                             5,
                             player.angle + (float) (Math.random() - 0.5),
-                            201,
+                            283,
                             3f,
-                            50
+                            50f,
+                            new Color(255, 215, 0)
                         )
                     );
                 shotTimer = shotCooldown;

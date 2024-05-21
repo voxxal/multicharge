@@ -13,7 +13,7 @@ public class Player extends Entity {
         Boolean
     >();
     public boolean shooting;
-    public Weapon weapon = new Weapon.Ak47();
+    public Weapon weapon = new Weapon.Flamethrower();
 
     public Player(float x, float y, int playerId) {
         super(x, y, 25);
@@ -37,50 +37,18 @@ public class Player extends Entity {
             radius,
             new Color(253, 193, 119).toRaylib()
         );
-        // Draw specific weapon
-        if (weapon.getName().equals("Remington 870")) {
-            DrawRectanglePro(
-                new Rectangle().x(pos.x).y(pos.y).width(weapon.len).height(16),
-                new Vector2().x(0).y(0),
-                angle * (180 / (float) Math.PI),
-                new Color(140, 136, 126).toRaylib()
-            );
-        } else if (weapon.getName().equals("Sniper")) {
-            DrawRectanglePro(
-                new Rectangle().x(pos.x).y(pos.y).width(weapon.len).height(8),
-                new Vector2().x(0).y(0),
-                angle * (180 / (float) Math.PI),
-                new Color(140, 136, 126).toRaylib()
-            );
-        } else if (weapon.getName().equals("Pistol")) {
-            DrawRectanglePro(
-                new Rectangle().x(pos.x).y(pos.y).width(weapon.len).height(8),
-                new Vector2().x(0).y(0),
-                angle * (180 / (float) Math.PI),
-                new Color(140, 136, 126).toRaylib()
-            );
-        } else if (weapon.getName().equals("uuddlrlrba")) {
-            // Attempt to add outline to weapon test
-            DrawRectanglePro(
-                new Rectangle().x(pos.x).y(pos.y).width(weapon.len).height(3),
-                new Vector2().x(0).y(0),
-                angle * (180 / (float) Math.PI),
-                new Color(191, 157, 0).toRaylib()
-            );
-            DrawRectanglePro(
-                new Rectangle().x(pos.x).y(pos.y).width(weapon.len / 2).height(6),
-                new Vector2().x(0).y(0),
-                angle * (180 / (float) Math.PI),
-                new Color(255, 210, 0).toRaylib()
-            );
-        } else {
-            DrawRectanglePro(
-                new Rectangle().x(pos.x).y(pos.y).width(40).height(8),
-                new Vector2().x(0).y(0),
-                angle * (180 / (float) Math.PI),
-                new Color(140, 136, 126).toRaylib()
-            );
-        }
+        DrawRectanglePro(
+            new Rectangle().x(pos.x).y(pos.y).width(weapon.len1).height(weapon.wid1),
+            new Vector2().x(0).y(0),
+            angle * (180 / (float) Math.PI),
+            weapon.c1.toRaylib()
+        );
+        DrawRectanglePro(
+            new Rectangle().x(pos.x).y(pos.y).width(weapon.len2).height(weapon.wid2),
+            new Vector2().x(0).y(0),
+            angle * (180 / (float) Math.PI),
+            weapon.c2.toRaylib()
+        );
     }
 
     public String toString() {

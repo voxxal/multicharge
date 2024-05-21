@@ -4,7 +4,8 @@ import static com.raylib.Raylib.*;
 public class Bullet extends Entity {
 
     public float lifetime;
-    public int damage;
+    public float damage;
+    public Color col;
 
     public Bullet(
         Vec2 origin,
@@ -12,13 +13,15 @@ public class Bullet extends Entity {
         float angle,
         float speed,
         float lifetime,
-        int damage
+        float damage,
+        Color col
     ) {
         super(origin.x, origin.y, radius);
         vel.x = (float) Math.cos(angle) * speed;
         vel.y = (float) Math.sin(angle) * speed;
         this.lifetime = lifetime;
         this.damage = damage;
+        this.col = col;
     }
 
     public void update(World world, float dt) {
@@ -31,7 +34,7 @@ public class Bullet extends Entity {
     }
 
     public void draw() {
-        DrawCircleV(pos.toRaylib(), radius + 2, (new Color(131, 116, 72)).toRaylib());
-        DrawCircleV(pos.toRaylib(), radius, (new Color(175, 155, 96)).toRaylib());
+        DrawCircleV(pos.toRaylib(), radius + 2, (new Color((int) (col.r * 0.75f), (int) (col.g * 0.75f) , (int) (col.b * 0.75f))).toRaylib());
+        DrawCircleV(pos.toRaylib(), radius, col.toRaylib());
     }
 }
