@@ -131,7 +131,66 @@ public class Obstacle extends Entity {
             collideable = false;
         }
 
-        public boolean onCollide(Entity other){
+        public boolean onCollide(Entity other) {
+            if (other instanceof Player) {
+                other.vel.x = Math.max(Math.min(other.vel.x, 100), -100);
+                other.vel.y = Math.max(Math.min(other.vel.y, 100), -100);
+            }
+            return false;
+        }
+    }
+
+    public static class Cactus extends Obstacle {
+
+        public Color flower;
+        public float flowerScale;
+
+        public Cactus(float x, float y) {
+            super(
+                x,
+                y,
+                50,
+                10 * ((int) (Math.random() * 4) + 7) *
+                ((int) (Math.random() * 4) + 7),
+                new Color(
+                    0x5d + (int) (Math.random() * 20),
+                    0xbf + (int) (Math.random() * 20),
+                    0x55 + (int) (Math.random() * 20)
+                )
+            );
+            flower = new Color(
+                    0xd3 + (int) (Math.random() * 20),
+                    0x5f + (int) (Math.random() * 20),
+                    0xd4 + (int) (Math.random() * 20)
+                );
+            super.maxhealth = 1000;
+            flowerScale = (float) 0.333;
+            updateRadius();
+        }
+
+        public void draw() {
+            DrawCircleV(
+                pos.toRaylib(),
+                radius,
+                color.toRaylib()
+            );
+            DrawCircleV(
+                pos.toRaylib(),
+                radius * flowerScale,
+                flower.toRaylib()
+            );
+        }
+
+        public boolean onCollide(Entity other) {
+            if (other instanceof Bullet) {
+                health -= ((Bullet) other).damage;
+                updateRadius();
+                updated = true;
+                if (health < 0) return true;
+            }
+            else if (other instanceof Player) {
+                ((Player) other).health -= 0.05;
+            }
             return false;
         }
     }
