@@ -130,14 +130,6 @@ public class Obstacle extends Entity {
             super(x, y, 500, 1_000_000_000, new Color((int)(Math.random() * 20), (int)(Math.random() * 100), 200 + (int)(Math.random() * 40)));
             collideable = false;
         }
-
-        public boolean onCollide(Entity other) {
-            if (other instanceof Player) {
-                other.vel.x = Math.max(Math.min(other.vel.x, 100), -100);
-                other.vel.y = Math.max(Math.min(other.vel.y, 100), -100);
-            }
-            return false;
-        }
     }
 
     public static class Cactus extends Obstacle {

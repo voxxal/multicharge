@@ -96,6 +96,11 @@ public class Player extends Entity {
             updated = true;
             health -= 0.05;
         }
+        else if(other instanceof Obstacle.Lake){
+            updated = true;
+            other.vel.x = Math.max(Math.min(other.vel.x, 100), -100);
+            other.vel.y = Math.max(Math.min(other.vel.y, 100), -100);
+        }
         if (health < 0) return true;
         return false;
     }
