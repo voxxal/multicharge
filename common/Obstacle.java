@@ -190,6 +190,7 @@ public class Obstacle extends Entity {
             }
             else if (other instanceof Player) {
                 ((Player) other).health -= 0.05;
+                other.updated = true;
             }
             return false;
         }
