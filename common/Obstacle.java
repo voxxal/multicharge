@@ -180,20 +180,6 @@ public class Obstacle extends Entity {
                 flower.toRaylib()
             );
         }
-
-        public boolean onCollide(Entity other) {
-            if (other instanceof Bullet) {
-                health -= ((Bullet) other).damage;
-                updateRadius();
-                updated = true;
-                if (health < 0) return true;
-            }
-            else if (other instanceof Player) {
-                ((Player) other).health -= 0.05;
-                other.updated = true;
-            }
-            return false;
-        }
     }
 
     public String toString() {

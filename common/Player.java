@@ -91,8 +91,12 @@ public class Player extends Entity {
             ((Bullet) other).hit = true;
             updated = true;
             health -= ((Bullet) other).damage;
-            if (health < 0) return true;
         }
+        else if (other instanceof Obstacle.Cactus){
+            updated = true;
+            health -= 0.05;
+        }
+        if (health < 0) return true;
         return false;
     }
 
