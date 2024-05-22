@@ -26,6 +26,7 @@ public class GameServer {
         world.add(new Obstacle.Rock(1800, 2800));
         world.add(new Obstacle.Rock(400, 600));
         world.add(new Obstacle.Lake(1500, 2000));
+        world.add(new Obstacle.Cactus(200, 200));
         serverSocket = new ServerSocket(port);
         loop = new GameLoop();
         loop.start();

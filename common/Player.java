@@ -13,8 +13,8 @@ public class Player extends Entity {
         Boolean
     >();
     public boolean shooting;
-    public Weapon weapon1 = new Weapon.Flamethrower();
-    public Weapon weapon2 = new Weapon.Debugger();
+    public Weapon weapon1 = new Weapon.RPG();
+    public Weapon weapon2 = new Weapon.Flamethrower();
     public boolean weaponNum = true;
 
     public Player(float x, float y, int playerId) {
