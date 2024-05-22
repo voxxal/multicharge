@@ -96,10 +96,9 @@ public class Player extends Entity {
             updated = true;
             health -= 0.05;
         }
-        else if(other instanceof Obstacle.Lake){
+        if (other instanceof Obstacle.Lake){
             updated = true;
-            other.vel.x = Math.max(Math.min(other.vel.x, 100), -100);
-            other.vel.y = Math.max(Math.min(other.vel.y, 100), -100);
+            speed = 100;
         }
         if (health < 0) return true;
         return false;
@@ -129,6 +128,7 @@ public class Player extends Entity {
         else if (vel.x < 0.01) vel.x /= decel;
         if (keys.getOrDefault(KEY_D, false)) vel.x = speed;
         else if (vel.x > 0.01) vel.x /= decel;
+        speed = 200;
 
         if (Math.abs(vel.y) < 0.01) vel.y = 0;
         if (Math.abs(vel.x) < 0.01) vel.x = 0;
