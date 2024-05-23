@@ -20,7 +20,25 @@ public class Client {
         world = new World();
     }
 
-    public void draw() {
+    public static enum Scene {
+        START,
+        GAME,
+    }
+
+    public Scene currentScene = Scene.START;
+
+    public void drawStart() {
+        Vec2 center = new Vec2(600, 450);
+        BeginDrawing();
+        ClearBackground(new Color(0x6e, 0xa0, 0x4d).toRaylib());
+        DrawText("Play", 600, 450, 40, VIOLET);
+        EndDrawing();
+        // check for the button being pressed then...
+        // client.serverHandler.start();
+        // currentScene = Scene.GAME;
+    }
+
+    public void drawGame() {
         Vector2 center = new Vector2().x(600).y(450);
         Player playerObj = (Player) world.entities.get(player);
 
@@ -81,11 +99,22 @@ public class Client {
         for (Entity e : world.entities.values()) {
             e.draw();
         }
-        DrawText("hiii", 0, 0, 20, RAYWHITE);
         EndMode2D();
         if (playerObj != null) {
-            if (playerObj.weaponNum) DrawText(playerObj.weapon1.toString(), 20, 900 - 40, 20, RAYWHITE);
-            if (!playerObj.weaponNum) DrawText(playerObj.weapon2.toString(), 20, 900 - 40, 20, RAYWHITE);
+            if (playerObj.weaponNum) DrawText(
+                playerObj.weapon1.toString(),
+                20,
+                900 - 40,
+                20,
+                RAYWHITE
+            );
+            if (!playerObj.weaponNum) DrawText(
+                playerObj.weapon2.toString(),
+                20,
+                900 - 40,
+                20,
+                RAYWHITE
+            );
             DrawRectangle(
                 300,
                 900 - 50,
@@ -108,13 +137,17 @@ public class Client {
 
     public static void main(String args[]) throws Exception {
         Client client = new Client();
-        client.serverHandler.start();
+        // client.serverHandler.start();
 
         InitWindow(1200, 900, "multicharge");
         SetTargetFPS(60);
 
         while (!WindowShouldClose()) {
-            client.draw();
+            if (client.currentScene == Scene.START) {
+                client.drawStart();
+            } else {
+                client.drawGame();
+            }
         }
         client.serverHandler.disconnect();
         CloseWindow();
