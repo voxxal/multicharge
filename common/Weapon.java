@@ -445,7 +445,7 @@ public static class RPG extends Weapon {
     }
 
 //  -------------------------
-//            Emptu
+//            Empty
 //  -------------------------
 
 public static class Empty extends Weapon {
