@@ -32,6 +32,10 @@ public class Color implements Serializable {
         return new com.raylib.Raylib.Color().r(r).g(g).b(b).a(a);
     }
 
+    public Color scale(double m) {
+        return new Color((int) (m * ((int) r & 255)), (int) (m * ((int) g & 255)), (int) (m * ((int) b & 255)));
+    }
+
     public String toString() {
         return String.format("(%d, %d, %d, %d)", r, g, b, a);
     }
