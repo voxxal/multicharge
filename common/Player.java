@@ -92,9 +92,7 @@ public class Player extends Entity {
     }
 
     public boolean onCollide(Entity other) {
-        // TODO this is a bandaid fix for multiple collisions, stop being lazy me :)
-        if (other instanceof Bullet && !((Bullet) other).hit) {
-            ((Bullet) other).hit = true;
+        if (other instanceof Bullet) {
             updated = true;
             health -= ((Bullet) other).damage;
         }
