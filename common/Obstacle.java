@@ -33,11 +33,7 @@ public class Obstacle extends Entity {
         return (
             Math.pow(other.pos.x - this.pos.x, 2) +
                 Math.pow(other.pos.y - this.pos.y, 2) <
-            Math.pow(
-                other.radius +
-                radius,
-                2
-            )
+            Math.pow(other.radius + radius, 2)
         );
     }
 
@@ -51,17 +47,14 @@ public class Obstacle extends Entity {
         return false;
     }
 
-    public void updateRadius(){
-        this.radius = maxRadius * (float) (0.5 + this.health / (2.0 * this.maxhealth));
+    public void updateRadius() {
+        this.radius = maxRadius *
+        (float) (0.5 + this.health / (2.0 * this.maxhealth));
     }
 
     public void draw() {
         updateRadius();
-        DrawCircleV(
-            pos.toRaylib(),
-            radius,
-            color.toRaylib()
-        );
+        DrawCircleV(pos.toRaylib(), radius, color.toRaylib());
     }
 
     public static class Rock extends Obstacle {
@@ -71,7 +64,8 @@ public class Obstacle extends Entity {
                 x,
                 y,
                 50,
-                10 * ((int) (Math.random() * 4) + 7) *
+                10 *
+                ((int) (Math.random() * 4) + 7) *
                 ((int) (Math.random() * 4) + 7),
                 new Color(
                     0x77 + (int) (Math.random() * 20),
@@ -116,18 +110,24 @@ public class Obstacle extends Entity {
                 radius * leavesScale,
                 leaves.toRaylib()
             );
-            DrawCircleV(
-                pos.toRaylib(),
-                radius,
-                color.toRaylib()
-            );
+            DrawCircleV(pos.toRaylib(), radius, color.toRaylib());
         }
     }
 
     public static class Lake extends Obstacle {
 
-        public Lake(float x, float y){
-            super(x, y, 500, 1_000_000_000, new Color((int)(Math.random() * 20), (int)(Math.random() * 100), 200 + (int)(Math.random() * 40)));
+        public Lake(float x, float y) {
+            super(
+                x,
+                y,
+                500,
+                1_000_000_000,
+                new Color(
+                    (int) (Math.random() * 20),
+                    (int) (Math.random() * 100),
+                    200 + (int) (Math.random() * 40)
+                )
+            );
             collideable = false;
         }
     }
@@ -142,7 +142,8 @@ public class Obstacle extends Entity {
                 x,
                 y,
                 50,
-                10 * ((int) (Math.random() * 4) + 7) *
+                10 *
+                ((int) (Math.random() * 4) + 7) *
                 ((int) (Math.random() * 4) + 7),
                 new Color(
                     0x5d + (int) (Math.random() * 20),
@@ -151,21 +152,17 @@ public class Obstacle extends Entity {
                 )
             );
             flower = new Color(
-                    0xd3 + (int) (Math.random() * 20),
-                    0x5f + (int) (Math.random() * 20),
-                    0xd4 + (int) (Math.random() * 20)
-                );
+                0xd3 + (int) (Math.random() * 20),
+                0x5f + (int) (Math.random() * 20),
+                0xd4 + (int) (Math.random() * 20)
+            );
             super.maxhealth = 1000;
             flowerScale = (float) 0.333;
             updateRadius();
         }
 
         public void draw() {
-            DrawCircleV(
-                pos.toRaylib(),
-                radius,
-                color.toRaylib()
-            );
+            DrawCircleV(pos.toRaylib(), radius, color.toRaylib());
             DrawCircleV(
                 pos.toRaylib(),
                 radius * flowerScale,

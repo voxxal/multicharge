@@ -95,15 +95,21 @@ public class Player extends Entity {
         if (other instanceof Bullet) {
             updated = true;
             health -= ((Bullet) other).damage;
+        } else if (other instanceof Obstacle.Lake) {
+            updated = true;
+            lakeSlow = 50;
+        } else {
+            Vec2 angle = pos
+                .sub(other.pos)
+                .normalize()
+                .scale(other.radius + radius);
+            pos = other.pos.add(angle);
         }
-        else if (other instanceof Obstacle.Cactus){
+        if (other instanceof Obstacle.Cactus) {
             updated = true;
             health -= 0.05;
         }
-        if (other instanceof Obstacle.Lake){
-            updated = true;
-            lakeSlow = 50;
-        }
+
         if (health < 0) return true;
         return false;
     }

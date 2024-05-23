@@ -18,6 +18,14 @@ public class Vec2 implements Serializable {
         return new Vector2().x(x).y(y);
     }
 
+    public Vec2 add(Vec2 other) {
+        return new Vec2(this.x + other.x, this.y + other.y);
+    }
+
+    public Vec2 sub(Vec2 other) {
+        return new Vec2(this.x - other.x, this.y - other.y);
+    }
+
     public float mag() {
         return (float) Math.sqrt(
             (float) Math.pow(x, 2) + (float) Math.pow(y, 2)
