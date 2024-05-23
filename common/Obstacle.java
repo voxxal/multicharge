@@ -56,7 +56,11 @@ public class Obstacle extends Entity {
     }
 
     public void draw() {
-        updateRadius();
+        DrawCircleV(
+            pos.toRaylib(),
+            radius + 2,
+            color.scale(0.75).toRaylib()
+        );
         DrawCircleV(
             pos.toRaylib(),
             radius,
@@ -116,11 +120,7 @@ public class Obstacle extends Entity {
                 radius * leavesScale,
                 leaves.toRaylib()
             );
-            DrawCircleV(
-                pos.toRaylib(),
-                radius,
-                color.toRaylib()
-            );
+            super.draw();
         }
     }
 
@@ -161,10 +161,11 @@ public class Obstacle extends Entity {
         }
 
         public void draw() {
+            super.draw();
             DrawCircleV(
                 pos.toRaylib(),
-                radius,
-                color.toRaylib()
+                radius * flowerScale + 2,
+                flower.scale(0.75).toRaylib()
             );
             DrawCircleV(
                 pos.toRaylib(),
