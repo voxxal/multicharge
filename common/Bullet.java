@@ -38,18 +38,10 @@ public class Bullet extends Entity {
     }
 
     public void draw() {
-        // temporary colour fix
-        int r = col.r & 255;
-        int g = col.g & 255;
-        int b = col.b & 255;
-        r *= 0.75;
-        g *= 0.75;
-        b *= 0.75;
-
         DrawCircleV(
             pos.toRaylib(),
             radius + 2,
-            (new Color(r, g, b)).toRaylib()
+            col.scale(0.75).toRaylib()
         );
         DrawCircleV(pos.toRaylib(), radius, col.toRaylib());
     }

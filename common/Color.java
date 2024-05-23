@@ -33,7 +33,7 @@ public class Color implements Serializable {
     }
 
     public Color scale(double m) {
-        return new Color((int) (m * (int) r), (int) (m * (int) g), (int) (m * (int) b));
+        return new Color((int) (m * ((int) r & 255)), (int) (m * ((int) g & 255)), (int) (m * ((int) b & 255)));
     }
 
     public String toString() {
