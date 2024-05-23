@@ -89,7 +89,7 @@ public class Obstacle extends Entity {
                 x,
                 y,
                 30,
-                1_000_000,
+                10_000,
                 new Color(
                     151 + (int) (Math.random() * 20),
                     93 + (int) (Math.random() * 20),
@@ -102,7 +102,7 @@ public class Obstacle extends Entity {
                 64 + (int) (Math.random() * 60),
                 (int) (Math.random() * 128) + 63
             );
-            leavesScale = 3;
+            leavesScale = Math.random() + 2;
         }
 
         public void draw() {
