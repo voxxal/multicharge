@@ -17,6 +17,7 @@ public abstract class Weapon implements Serializable {
     public int wid2;
     public Color c1;
     public Color c2;
+    public int weight;
 
     public abstract boolean shoot(World world, Player player);
 
@@ -74,6 +75,7 @@ public abstract class Weapon implements Serializable {
             wid2 = 20;
             c1 = new Color(140, 136, 126);
             c2 = new Color(105, 102, 94);
+            weight = 25;
         }
 
         public void draw(Player player) {}
@@ -122,6 +124,7 @@ public abstract class Weapon implements Serializable {
             wid2 = 6;
             c1 = new Color(140, 136, 126);
             c2 = new Color(105,74,1);
+            weight = 25;
         }
 
         public void draw(Player player) {}
@@ -169,6 +172,7 @@ public abstract class Weapon implements Serializable {
             wid2 = 6;
             c1 = new Color(140, 136, 126);
             c2 = new Color(105, 102, 94);
+            weight = 0;
         }
 
         public void draw(Player player) {}
@@ -216,6 +220,7 @@ public abstract class Weapon implements Serializable {
             wid2 = 7;
             c1 = new Color(105, 102, 94);
             c2 = new Color(79, 76, 70);
+            weight = 75;
         }
 
         public void draw(Player player) {}
@@ -263,6 +268,7 @@ public abstract class Weapon implements Serializable {
             wid2 = 9;
             c1 = new Color(105, 102, 94);
             c2 = new Color(79, 76, 70);
+            weight = 10;
         }
 
         public void draw(Player player) {}
@@ -310,6 +316,7 @@ public abstract class Weapon implements Serializable {
             wid2 = 8;
             c1 = new Color(140, 136, 126);
             c2 = new Color(105,74,1);
+            weight = 20;
         }
 
         public void draw(Player player) {}
@@ -358,6 +365,7 @@ public static class RPG extends Weapon {
         wid2 = 8;
         c1 = new Color(105, 102, 94);
         c2 = new Color(79, 76, 70);
+        weight = 100;
     }
 
     public void draw(Player player) {}
@@ -406,6 +414,7 @@ public static class RPG extends Weapon {
             wid2 = 6;
             c1 = new Color(191, 157, 0);
             c2 = new Color(255, 210, 0);
+            weight = 100;
         }
 
         public void draw(Player player) {}
@@ -434,6 +443,51 @@ public static class RPG extends Weapon {
             return true;
         }
     }
+
+//  -------------------------
+//            Emptu
+//  -------------------------
+
+public static class Empty extends Weapon {
+
+    public Empty() {
+        name = "hand";
+        reloadSpeed = 0f;
+        maxAmmo = 1;
+        ammo = 1;
+        magazined = true;
+        shotCooldown = 0f;
+        len1 = 30;
+        len2 = 7;
+        c1 = new Color(253, 193, 119);
+        weight = -100;
+    }
+
+    public void draw(Player player) {}
+
+    public boolean shoot(World world, Player player) {
+        if (ammo > 0 && shotTimer <= 0) {
+            reloading = false;
+            ammo--;
+            world.add(
+                new Bullet(
+                    new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
+                    len2,
+                    player.angle,
+                    300,
+                    0.1f,
+                    7f,
+                    c1
+                )
+            );
+            shotTimer = shotCooldown;
+        } else if (ammo <= 0) {
+            reload();
+            return false;
+        }
+        return true;
+    }
+}
 
     public String getName() {
         return name;
