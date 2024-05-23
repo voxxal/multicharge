@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.Set;
+import java.util.HashSet;
 
 public class World {
 
@@ -11,6 +13,7 @@ public class World {
     >();
     // for the collisions, server side
     public ArrayList<ArrayList<LinkedList<Entity>>> spatialPartition;
+    public Set<Double> collisions;
 
     public int add(Entity entity) {
         entities.put(++nextId, entity);
@@ -39,6 +42,7 @@ public class World {
 
     public void update(float dt) {
         spatialPartition = new ArrayList<ArrayList<LinkedList<Entity>>>();
+        collisions = new HashSet<Double>();
         for (int i = 0; i < 25; i++) {
             spatialPartition.add(new ArrayList<LinkedList<Entity>>());
             for (int j = 0; j < 25; j++) {
@@ -67,16 +71,18 @@ public class World {
                 }
             }
         }
-
+        
         for (ArrayList<LinkedList<Entity>> row : spatialPartition) {
             for (LinkedList<Entity> chunk : row) {
                 for (int i = 0; i < chunk.size(); i++) {
                     Entity entity = chunk.get(i);
                     for (int j = 0; j < i; j++) {
                         Entity other = chunk.get(j);
-                        if (entity.didCollide(other)) {
+                        double hash = other.pos.x * 1.434 + other.pos.y * 69.69 + entity.pos.x * 420.96 + entity.pos.y * 1412;
+                        if (entity.didCollide(other) && !collisions.contains(hash)) {
                             if (entity.onCollide(other)) remove(entity);
                             if (other.onCollide(entity)) remove(other);
+                            collisions.add(hash);
                         }
                     }
                 }
