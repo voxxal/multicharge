@@ -89,7 +89,7 @@ public class Obstacle extends Entity {
     public static class Tree extends Obstacle {
 
         public Color leaves;
-        public int leavesScale;
+        public float leavesScale;
 
         public Tree(float x, float y) {
             super(
@@ -109,7 +109,7 @@ public class Obstacle extends Entity {
                 64 + (int) (Math.random() * 60),
                 (int) (Math.random() * 128) + 63
             );
-            leavesScale = Math.random() + 2;
+            leavesScale = (float) Math.random() + 2;
         }
 
         public void draw() {
