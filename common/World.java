@@ -72,7 +72,7 @@ public class World {
             for (LinkedList<Entity> chunk : row) {
                 for (int i = 0; i < chunk.size(); i++) {
                     Entity entity = chunk.get(i);
-                    for (int j = 0; j <= i; j++) {
+                    for (int j = 0; j < i; j++) {
                         Entity other = chunk.get(j);
                         if (entity.didCollide(other)) {
                             if (entity.onCollide(other)) remove(entity);
