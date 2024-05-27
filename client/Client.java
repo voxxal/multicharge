@@ -13,6 +13,7 @@ public class Client {
     private float recentDamage = 0;
     public ServerHandler serverHandler;
     public Vec2 mouse = new Vec2();
+    public String[] selectedWeapons = { null, null };
 
     public Client() {
         camera = new Camera2D().zoom(1);
@@ -188,6 +189,12 @@ public class Client {
                     Object next = in.readObject();
                     if (next instanceof Packet.Connect) {
                         playerId = ((Packet.Connect) next).playerId;
+                        send(
+                            new Packet.SelectWeapons(
+                                selectedWeapons[0],
+                                selectedWeapons[1]
+                            )
+                        );
                     } else if (next instanceof Packet.Disconnect) {
                         System.out.println(
                             "[CLIENT] recieved message to disconnect: " +

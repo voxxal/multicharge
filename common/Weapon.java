@@ -56,9 +56,9 @@ public abstract class Weapon implements Serializable {
         );
     }
 
-//  --------------------------------
-//            Remington870
-//  --------------------------------
+    //  --------------------------------
+    //            Remington870
+    //  --------------------------------
 
     public static class Remington870 extends Weapon {
 
@@ -87,7 +87,12 @@ public abstract class Weapon implements Serializable {
                 for (int i = 0; i < 8; i++) {
                     world.add(
                         new Bullet(
-                            new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
+                            new Vec2(
+                                player.pos.x +
+                                (float) (Math.cos(player.angle) * len1),
+                                player.pos.y +
+                                (float) (Math.sin(player.angle) * len1)
+                            ),
                             5,
                             player.angle + ((float) Math.random() - 0.5f) / 2,
                             500 + (float) Math.random() * 25,
@@ -105,9 +110,9 @@ public abstract class Weapon implements Serializable {
         }
     }
 
-//  ------------------------
-//            AK47
-//  ------------------------
+    //  ------------------------
+    //            AK47
+    //  ------------------------
 
     public static class Ak47 extends Weapon {
 
@@ -123,7 +128,7 @@ public abstract class Weapon implements Serializable {
             wid1 = 8;
             wid2 = 6;
             c1 = new Color(140, 136, 126);
-            c2 = new Color(105,74,1);
+            c2 = new Color(105, 74, 1);
             weight = 25;
         }
 
@@ -135,7 +140,12 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
+                        new Vec2(
+                            player.pos.x +
+                            (float) (Math.cos(player.angle) * len1),
+                            player.pos.y +
+                            (float) (Math.sin(player.angle) * len1)
+                        ),
                         5,
                         player.angle + (float) (Math.random() / 8 - 0.0625),
                         500,
@@ -153,9 +163,9 @@ public abstract class Weapon implements Serializable {
         }
     }
 
-//  --------------------------
-//            Pistol
-//  --------------------------
+    //  --------------------------
+    //            Pistol
+    //  --------------------------
 
     public static class Pistol extends Weapon {
 
@@ -183,7 +193,12 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
+                        new Vec2(
+                            player.pos.x +
+                            (float) (Math.cos(player.angle) * len1),
+                            player.pos.y +
+                            (float) (Math.sin(player.angle) * len1)
+                        ),
                         5,
                         player.angle + (float) (Math.random() / 10 - 0.05),
                         500,
@@ -201,9 +216,9 @@ public abstract class Weapon implements Serializable {
         }
     }
 
-//  --------------------------
-//            Sniper
-//  --------------------------
+    //  --------------------------
+    //            Sniper
+    //  --------------------------
 
     public static class Sniper extends Weapon {
 
@@ -231,7 +246,12 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
+                        new Vec2(
+                            player.pos.x +
+                            (float) (Math.cos(player.angle) * len1),
+                            player.pos.y +
+                            (float) (Math.sin(player.angle) * len1)
+                        ),
                         3,
                         player.angle,
                         2500,
@@ -249,9 +269,9 @@ public abstract class Weapon implements Serializable {
         }
     }
 
-//  -----------------------
-//            SMG
-//  -----------------------
+    //  -----------------------
+    //            SMG
+    //  -----------------------
 
     public static class SMG extends Weapon {
 
@@ -279,7 +299,12 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
+                        new Vec2(
+                            player.pos.x +
+                            (float) (Math.cos(player.angle) * len1),
+                            player.pos.y +
+                            (float) (Math.sin(player.angle) * len1)
+                        ),
                         3,
                         player.angle + (float) (Math.random() - 0.5),
                         300,
@@ -297,9 +322,9 @@ public abstract class Weapon implements Serializable {
         }
     }
 
-//  --------------------------------
-//            Flamethrower
-//  --------------------------------
+    //  --------------------------------
+    //            Flamethrower
+    //  --------------------------------
 
     public static class Flamethrower extends Weapon {
 
@@ -315,7 +340,7 @@ public abstract class Weapon implements Serializable {
             wid1 = 6;
             wid2 = 8;
             c1 = new Color(140, 136, 126);
-            c2 = new Color(105,74,1);
+            c2 = new Color(105, 74, 1);
             weight = 20;
         }
 
@@ -325,18 +350,22 @@ public abstract class Weapon implements Serializable {
             if (ammo > 0 && shotTimer <= 0) {
                 reloading = false;
                 ammo--;
-                for(int i = 0; i < 3; i++)
-                    world.add(
-                        new Bullet(
-                            new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
-                            2,
-                            player.angle + (float) (Math.random() * 0.5 - 0.25),
-                            283,
-                            1f,
-                            1f,
-                            new Color(235, 113, 26)
-                        )
-                    );
+                for (int i = 0; i < 3; i++) world.add(
+                    new Bullet(
+                        new Vec2(
+                            player.pos.x +
+                            (float) (Math.cos(player.angle) * len1),
+                            player.pos.y +
+                            (float) (Math.sin(player.angle) * len1)
+                        ),
+                        2,
+                        player.angle + (float) (Math.random() * 0.5 - 0.25),
+                        283,
+                        1f,
+                        1f,
+                        new Color(235, 113, 26)
+                    )
+                );
                 shotTimer = shotCooldown;
             } else if (ammo <= 0) {
                 reload();
@@ -346,38 +375,42 @@ public abstract class Weapon implements Serializable {
         }
     }
 
-//  -----------------------
-//            RPG
-//  -----------------------
+    //  -----------------------
+    //            RPG
+    //  -----------------------
 
-public static class RPG extends Weapon {
+    public static class RPG extends Weapon {
 
-    public RPG() {
-        name = "RPG";
-        reloadSpeed = 8f;
-        maxAmmo = 1;
-        ammo = 1;
-        magazined = true;
-        shotCooldown = 2f;
-        len1 = 80;
-        len2 = 40;
-        wid1 = 16;
-        wid2 = 8;
-        c1 = new Color(105, 102, 94);
-        c2 = new Color(79, 76, 70);
-        weight = 100;
-    }
+        public RPG() {
+            name = "RPG";
+            reloadSpeed = 8f;
+            maxAmmo = 1;
+            ammo = 1;
+            magazined = true;
+            shotCooldown = 2f;
+            len1 = 80;
+            len2 = 40;
+            wid1 = 16;
+            wid2 = 8;
+            c1 = new Color(105, 102, 94);
+            c2 = new Color(79, 76, 70);
+            weight = 100;
+        }
 
-    public void draw(Player player) {}
+        public void draw(Player player) {}
 
-    public boolean shoot(World world, Player player) {
-        if (ammo > 0 && shotTimer <= 0) {
-            reloading = false;
-            ammo--;
-            for(int i = 0; i < 5; i++)
-                world.add(
+        public boolean shoot(World world, Player player) {
+            if (ammo > 0 && shotTimer <= 0) {
+                reloading = false;
+                ammo--;
+                for (int i = 0; i < 5; i++) world.add(
                     new Bullet(
-                        new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
+                        new Vec2(
+                            player.pos.x +
+                            (float) (Math.cos(player.angle) * len1),
+                            player.pos.y +
+                            (float) (Math.sin(player.angle) * len1)
+                        ),
                         16,
                         player.angle,
                         500,
@@ -386,18 +419,18 @@ public static class RPG extends Weapon {
                         new Color(53, 69, 48)
                     )
                 );
-            shotTimer = shotCooldown;
-        } else if (ammo <= 0) {
-            reload();
-            return false;
+                shotTimer = shotCooldown;
+            } else if (ammo <= 0) {
+                reload();
+                return false;
+            }
+            return true;
         }
-        return true;
     }
-}
 
-//  ----------------------------
-//            Debugger
-//  ----------------------------
+    //  ----------------------------
+    //            Debugger
+    //  ----------------------------
 
     public static class Debugger extends Weapon {
 
@@ -423,18 +456,22 @@ public static class RPG extends Weapon {
             if (ammo > 0 && shotTimer <= 0) {
                 reloading = false;
                 ammo--;
-                for(int i = 0; i < 15; i++)
-                    world.add(
-                        new Bullet(
-                            new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
-                            5,
-                            player.angle + (float) (Math.random() - 0.5),
-                            283,
-                            3f,
-                            50f,
-                            new Color(255, 215, 0)
-                        )
-                    );
+                for (int i = 0; i < 15; i++) world.add(
+                    new Bullet(
+                        new Vec2(
+                            player.pos.x +
+                            (float) (Math.cos(player.angle) * len1),
+                            player.pos.y +
+                            (float) (Math.sin(player.angle) * len1)
+                        ),
+                        5,
+                        player.angle + (float) (Math.random() - 0.5),
+                        283,
+                        3f,
+                        50f,
+                        new Color(255, 215, 0)
+                    )
+                );
                 shotTimer = shotCooldown;
             } else if (ammo <= 0) {
                 reload();
@@ -444,52 +481,68 @@ public static class RPG extends Weapon {
         }
     }
 
-//  -------------------------
-//            Empty
-//  -------------------------
+    //  -------------------------
+    //            Empty
+    //  -------------------------
 
-public static class Empty extends Weapon {
+    public static class Empty extends Weapon {
 
-    public Empty() {
-        name = "hand";
-        reloadSpeed = 0f;
-        maxAmmo = 1;
-        ammo = 1;
-        magazined = true;
-        shotCooldown = 0f;
-        len1 = 30;
-        len2 = 7;
-        c1 = new Color(253, 193, 119);
-        weight = -100;
-    }
-
-    public void draw(Player player) {}
-
-    public boolean shoot(World world, Player player) {
-        if (ammo > 0 && shotTimer <= 0) {
-            reloading = false;
-            ammo--;
-            world.add(
-                new Bullet(
-                    new Vec2(player.pos.x + (float) (Math.cos(player.angle) * len1), player.pos.y + (float) (Math.sin(player.angle) * len1)),
-                    len2,
-                    player.angle,
-                    300,
-                    0.1f,
-                    7f,
-                    c1
-                )
-            );
-            shotTimer = shotCooldown;
-        } else if (ammo <= 0) {
-            reload();
-            return false;
+        public Empty() {
+            name = "hand";
+            reloadSpeed = 0f;
+            maxAmmo = 1;
+            ammo = 1;
+            magazined = true;
+            shotCooldown = 0f;
+            len1 = 30;
+            len2 = 7;
+            c1 = new Color(253, 193, 119);
+            weight = -100;
         }
-        return true;
+
+        public void draw(Player player) {}
+
+        public boolean shoot(World world, Player player) {
+            if (ammo > 0 && shotTimer <= 0) {
+                reloading = false;
+                ammo--;
+                world.add(
+                    new Bullet(
+                        new Vec2(
+                            player.pos.x +
+                            (float) (Math.cos(player.angle) * len1),
+                            player.pos.y +
+                            (float) (Math.sin(player.angle) * len1)
+                        ),
+                        len2,
+                        player.angle,
+                        300,
+                        0.1f,
+                        7f,
+                        c1
+                    )
+                );
+                shotTimer = shotCooldown;
+            } else if (ammo <= 0) {
+                reload();
+                return false;
+            }
+            return true;
+        }
     }
-}
 
     public String getName() {
         return name;
+    }
+
+    public Weapon fromString(String str) {
+        if (str.equals("Ak47")) return new Weapon.Ak47();
+        if (str.equals("Remington870")) return new Weapon.Remington870();
+        if (str.equals("Pistol")) return new Weapon.Pistol();
+        if (str.equals("Sniper")) return new Weapon.Sniper();
+        if (str.equals("SMG")) return new Weapon.SMG();
+        if (str.equals("Flamethrower")) return new Weapon.Flamethrower();
+        if (str.equals("RPG")) return new Weapon.RPG();
+        return null;
     }
 }
