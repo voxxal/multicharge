@@ -535,9 +535,9 @@ public abstract class Weapon implements Serializable {
         return name;
     }
 
-    public Weapon fromString(String str) {
-        if (str.equals("Ak47")) return new Weapon.Ak47();
-        if (str.equals("Remington870")) return new Weapon.Remington870();
+    public static Weapon fromString(String str) {
+        if (str.equals("Ak-47")) return new Weapon.Ak47();
+        if (str.equals("Remington 870")) return new Weapon.Remington870();
         if (str.equals("Pistol")) return new Weapon.Pistol();
         if (str.equals("Sniper")) return new Weapon.Sniper();
         if (str.equals("SMG")) return new Weapon.SMG();
