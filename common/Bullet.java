@@ -8,7 +8,8 @@ public class Bullet extends Entity {
     public Color col;
 
     public Bullet(
-        Vec2 origin,
+        Player player,
+        float len1,
         float radius,
         float angle,
         float speed,
@@ -16,9 +17,13 @@ public class Bullet extends Entity {
         float damage,
         Color col
     ) {
-        super(origin.x, origin.y, radius);
-        vel.x = (float) Math.cos(angle) * speed;
-        vel.y = (float) Math.sin(angle) * speed;
+        super(
+            player.pos.x + (float) (Math.cos(player.angle) * len1),
+            player.pos.y + (float) (Math.sin(player.angle) * len1),
+            radius
+        );
+        vel.x = (float) Math.cos(angle) * speed + player.vel.x;
+        vel.y = (float) Math.sin(angle) * speed + player.vel.y;
         this.lifetime = lifetime;
         this.damage = damage;
         this.col = col;
@@ -38,11 +43,7 @@ public class Bullet extends Entity {
     }
 
     public void draw() {
-        DrawCircleV(
-            pos.toRaylib(),
-            radius + 2,
-            col.scale(0.75).toRaylib()
-        );
+        DrawCircleV(pos.toRaylib(), radius + 2, col.scale(0.75).toRaylib());
         DrawCircleV(pos.toRaylib(), radius, col.toRaylib());
     }
 }

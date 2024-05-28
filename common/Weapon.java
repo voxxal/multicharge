@@ -87,12 +87,8 @@ public abstract class Weapon implements Serializable {
                 for (int i = 0; i < 8; i++) {
                     world.add(
                         new Bullet(
-                            new Vec2(
-                                player.pos.x +
-                                (float) (Math.cos(player.angle) * len1),
-                                player.pos.y +
-                                (float) (Math.sin(player.angle) * len1)
-                            ),
+                            player,
+                            len1,
                             5,
                             player.angle + ((float) Math.random() - 0.5f) / 2,
                             500 + (float) Math.random() * 25,
@@ -140,12 +136,8 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(
-                            player.pos.x +
-                            (float) (Math.cos(player.angle) * len1),
-                            player.pos.y +
-                            (float) (Math.sin(player.angle) * len1)
-                        ),
+                        player,
+                        len1,
                         5,
                         player.angle + (float) (Math.random() / 8 - 0.0625),
                         500,
@@ -193,12 +185,8 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(
-                            player.pos.x +
-                            (float) (Math.cos(player.angle) * len1),
-                            player.pos.y +
-                            (float) (Math.sin(player.angle) * len1)
-                        ),
+                        player,
+                        len1,
                         5,
                         player.angle + (float) (Math.random() / 10 - 0.05),
                         500,
@@ -246,12 +234,8 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(
-                            player.pos.x +
-                            (float) (Math.cos(player.angle) * len1),
-                            player.pos.y +
-                            (float) (Math.sin(player.angle) * len1)
-                        ),
+                        player,
+                        len1,
                         3,
                         player.angle,
                         2500,
@@ -299,12 +283,8 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(
-                            player.pos.x +
-                            (float) (Math.cos(player.angle) * len1),
-                            player.pos.y +
-                            (float) (Math.sin(player.angle) * len1)
-                        ),
+                        player,
+                        len1,
                         3,
                         player.angle + (float) (Math.random() - 0.5),
                         300,
@@ -352,12 +332,8 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 for (int i = 0; i < 3; i++) world.add(
                     new Bullet(
-                        new Vec2(
-                            player.pos.x +
-                            (float) (Math.cos(player.angle) * len1),
-                            player.pos.y +
-                            (float) (Math.sin(player.angle) * len1)
-                        ),
+                        player,
+                        len1,
                         2,
                         player.angle + (float) (Math.random() * 0.5 - 0.25),
                         283,
@@ -405,12 +381,8 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 for (int i = 0; i < 5; i++) world.add(
                     new Bullet(
-                        new Vec2(
-                            player.pos.x +
-                            (float) (Math.cos(player.angle) * len1),
-                            player.pos.y +
-                            (float) (Math.sin(player.angle) * len1)
-                        ),
+                        player,
+                        len1,
                         16,
                         player.angle,
                         500,
@@ -458,12 +430,8 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 for (int i = 0; i < 15; i++) world.add(
                     new Bullet(
-                        new Vec2(
-                            player.pos.x +
-                            (float) (Math.cos(player.angle) * len1),
-                            player.pos.y +
-                            (float) (Math.sin(player.angle) * len1)
-                        ),
+                        player,
+                        len1,
                         5,
                         player.angle + (float) (Math.random() - 0.5),
                         283,
@@ -508,12 +476,8 @@ public abstract class Weapon implements Serializable {
                 ammo--;
                 world.add(
                     new Bullet(
-                        new Vec2(
-                            player.pos.x +
-                            (float) (Math.cos(player.angle) * len1),
-                            player.pos.y +
-                            (float) (Math.sin(player.angle) * len1)
-                        ),
+                        player,
+                        len1,
                         len2,
                         player.angle,
                         300,
@@ -543,6 +507,6 @@ public abstract class Weapon implements Serializable {
         if (str.equals("SMG")) return new Weapon.SMG();
         if (str.equals("Flamethrower")) return new Weapon.Flamethrower();
         if (str.equals("RPG")) return new Weapon.RPG();
-        return null;
+        return new Weapon.Empty();
     }
 }
