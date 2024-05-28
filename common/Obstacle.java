@@ -1,4 +1,6 @@
 import static com.raylib.Raylib.*;
+import java.io.*;
+import java.util.*;
 
 public class Obstacle extends Entity {
 
@@ -38,13 +40,42 @@ public class Obstacle extends Entity {
     }
 
     public boolean onCollide(Entity other) {
-        if (other instanceof Bullet) {
+        if (health < 0){
+            return true;
+        }
+        else if (other instanceof Bullet) {
             health -= ((Bullet) other).damage;
             updateRadius();
             updated = true;
-            if (health < 0) return true;
+            if (health < 0){
+                incrementCounter();
+                return true;
+            }
         }
         return false;
+    }
+
+    public void incrementCounter(){
+        try{
+            File stats = new File("../stats.txt");
+            int count;
+            if(!stats.isFile()){
+                stats.createNewFile();
+                count = 0;
+            }
+            else{
+                Scanner reader = new Scanner(stats);
+                String[] line = reader.nextLine().split(" ");
+                reader.close();
+                count = Integer.parseInt(line[line.length - 1]);
+            }
+            FileWriter statsWriter = new FileWriter("../stats.txt");
+            statsWriter.write(String.format("Obstacles killed: %d\n", count + 1));
+            statsWriter.close();
+        } catch (IOException e){
+            System.out.println("Error writing to file: ../stats.txt");
+            e.printStackTrace();
+        }
     }
 
     public void updateRadius() {

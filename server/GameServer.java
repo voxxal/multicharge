@@ -145,6 +145,15 @@ public class GameServer {
                         } else if (next instanceof Packet.Mouse) {
                             player.shooting = !((Packet.Mouse) next).released;
                             player.updated = true;
+                        } else if (next instanceof Packet.SelectWeapons) {
+                            Packet.SelectWeapons selectWeapon =
+                                (Packet.SelectWeapons) next;
+                            player.weapon1 = Weapon.fromString(
+                                selectWeapon.weapon1
+                            );
+                            player.weapon2 = Weapon.fromString(
+                                selectWeapon.weapon2
+                            );
                         } else {
                             System.out.println(
                                 "[SERVER] unknown packet " + next.toString()

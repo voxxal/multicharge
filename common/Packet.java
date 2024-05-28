@@ -12,6 +12,16 @@ public class Packet implements Serializable {
         }
     }
 
+    public static class SelectWeapons extends Packet {
+        public String weapon1;
+        public String weapon2;
+
+        public SelectWeapons(String weapon1, String weapon2) {
+            this.weapon1 = weapon1;
+            this.weapon2 = weapon2;
+        }
+    }
+
     public static class Disconnect extends Packet {
 
         public String message;

@@ -13,6 +13,16 @@ public class Client {
     private float recentDamage = 0;
     public ServerHandler serverHandler;
     public Vec2 mouse = new Vec2();
+    public int[] selectedWeapons = { 0, 0 };
+    private String[] weaponList = {
+        "Ak-47",
+        "Remington 870",
+        "Pistol",
+        "Sniper",
+        "SMG",
+        "Flamethrower",
+        "RPG",
+    };
 
     public Client() {
         camera = new Camera2D().zoom(1);
@@ -27,7 +37,7 @@ public class Client {
 
     public Scene currentScene = Scene.START;
 
-    public void drawStart() {
+    public void drawStart(Client client) {
         Vec2 center = new Vec2(600, 450);
         BeginDrawing();
         DrawRectangle(
@@ -38,11 +48,64 @@ public class Client {
             new Color(255, 255, 255).toRaylib()
         );
         ClearBackground(new Color(0x6e, 0xa0, 0x4d).toRaylib());
-        DrawText("Play", 600, 450, 40, VIOLET);
+        int width = MeasureText(">", 30);
+        DrawText("<", 400, 200, 30, RAYWHITE);
+        DrawText(">", 800 - width, 200, 30, RAYWHITE);
+        String weapon0 = weaponList[selectedWeapons[0]];
+        DrawText(
+            weapon0,
+            600 - MeasureText(weapon0, 30) / 2,
+            200,
+            30,
+            RAYWHITE
+        );
+        DrawText("<", 400, 300, 30, RAYWHITE);
+        DrawText(">", 800 - width, 300, 30, RAYWHITE);
+        String weapon1 = weaponList[selectedWeapons[1]];
+        DrawText(
+            weapon1,
+            600 - MeasureText(weapon1, 30) / 2,
+            300,
+            30,
+            RAYWHITE
+        );
+        DrawText("Play", 600 - MeasureText("Play", 40) / 2, 450, 40, VIOLET);
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            int x = GetMouseX();
+            int y = GetMouseY();
+            if (x > 400 && x < 400 + width && y > 200 && y < 230) {
+                selectedWeapons[0]--;
+                if (selectedWeapons[0] == -1) selectedWeapons[0] =
+                    weaponList.length - 1;
+            }
+
+            if (x > 800 - width && x < 800 && y > 200 && y < 230) {
+                selectedWeapons[0] = (selectedWeapons[0] + 1) %
+                weaponList.length;
+            }
+
+            if (x > 400 && x < 400 + width && y > 300 && y < 330) {
+                selectedWeapons[1]--;
+                if (selectedWeapons[1] == -1) selectedWeapons[1] =
+                    weaponList.length - 1;
+            }
+
+            if (x > 800 - width && x < 800 && y > 300 && y < 330) {
+                selectedWeapons[1] = (selectedWeapons[1] + 1) %
+                weaponList.length;
+            }
+
+            if (
+                x > 600 - MeasureText("Play", 40) / 2 &&
+                x < 600 + MeasureText("Play", 40) / 2 &&
+                y > 450 &&
+                y < 490
+            ) {
+                client.serverHandler.start();
+                currentScene = Scene.GAME;
+            }
+        }
         EndDrawing();
-        // check for the button being pressed then...
-        // client.serverHandler.start();
-        // currentScene = Scene.GAME;
     }
 
     public void drawGame() {
@@ -151,7 +214,7 @@ public class Client {
 
         while (!WindowShouldClose()) {
             if (client.currentScene == Scene.START) {
-                client.drawStart();
+                client.drawStart(client);
             } else {
                 client.drawGame();
             }
@@ -195,6 +258,12 @@ public class Client {
                     Object next = in.readObject();
                     if (next instanceof Packet.Connect) {
                         playerId = ((Packet.Connect) next).playerId;
+                        send(
+                            new Packet.SelectWeapons(
+                                weaponList[selectedWeapons[0]],
+                                weaponList[selectedWeapons[1]]
+                            )
+                        );
                     } else if (next instanceof Packet.Disconnect) {
                         System.out.println(
                             "[CLIENT] recieved message to disconnect: " +
