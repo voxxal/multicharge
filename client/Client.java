@@ -30,6 +30,13 @@ public class Client {
     public void drawStart() {
         Vec2 center = new Vec2(600, 450);
         BeginDrawing();
+        DrawRectangle(
+            590,
+            440,
+            110,
+            60,
+            new Color(255, 255, 255).toRaylib()
+        );
         ClearBackground(new Color(0x6e, 0xa0, 0x4d).toRaylib());
         DrawText("Play", 600, 450, 40, VIOLET);
         EndDrawing();
