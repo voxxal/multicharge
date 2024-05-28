@@ -52,6 +52,18 @@ public class GameServer {
                 for (ClientHandler handler : clientHandlers) {
                     handler.updateClient(update);
                 }
+                if(Math.random() < 0.001){
+                    world.add(new Obstacle.Cactus((float)Math.random()*5000, (float)Math.random()*5000));
+                }
+                else if(Math.random() < 0.001){
+                    world.add(new Obstacle.Tree((float)Math.random()*5000, (float)Math.random()*5000));
+                }
+                else if(Math.random() < 0.001){
+                    world.add(new Obstacle.Rock((float)Math.random()*5000, (float)Math.random()*5000));
+                }
+                else if(Math.random() < 0.000001){
+                    world.add(new Obstacle.Lake((float)Math.random()*5000, (float)Math.random()*5000));
+                }
             }
         }
     }
