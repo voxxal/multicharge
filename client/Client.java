@@ -1,3 +1,4 @@
+import static com.raylib.Jaylib.BLACK;
 import static com.raylib.Jaylib.RAYWHITE;
 import static com.raylib.Jaylib.VIOLET;
 import static com.raylib.Raylib.*;
@@ -14,6 +15,8 @@ public class Client {
     public ServerHandler serverHandler;
     public Vec2 mouse = new Vec2();
     public int[] selectedWeapons = { 0, 0 };
+    private boolean urlBarSelected = false;
+    private String urlBar = "127.0.0.1:4200";
     private String[] weaponList = {
         "Ak-47",
         "Remington 870",
@@ -38,15 +41,17 @@ public class Client {
     public Scene currentScene = Scene.START;
 
     public void drawStart(Client client) {
+        if (urlBarSelected) {
+            int nextChar = 0;
+            while ((nextChar = GetCharPressed()) != 0) {
+                urlBar += (char) nextChar; // don't enter unicode characters you will cause this to explode :)
+            }
+            if (IsKeyPressed(KEY_BACKSPACE) && urlBar.length() > 0) {
+                urlBar = urlBar.substring(0, urlBar.length() - 1);
+            }
+        }
         Vec2 center = new Vec2(600, 450);
         BeginDrawing();
-        DrawRectangle(
-            590,
-            440,
-            110,
-            60,
-            new Color(255, 255, 255).toRaylib()
-        );
         ClearBackground(new Color(0x6e, 0xa0, 0x4d).toRaylib());
         int width = MeasureText(">", 30);
         DrawText("<", 400, 200, 30, RAYWHITE);
@@ -68,6 +73,16 @@ public class Client {
             300,
             30,
             RAYWHITE
+        );
+
+        DrawRectangle(400, 375, 400, 30, RAYWHITE);
+        DrawText(urlBar, 405, 380, 20, BLACK);
+        if (urlBarSelected) DrawRectangle(
+            400 + MeasureText(urlBar, 20) + 10,
+            380,
+            2,
+            20,
+            BLACK
         );
         DrawText("Play", 600 - MeasureText("Play", 40) / 2, 450, 40, VIOLET);
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -104,6 +119,7 @@ public class Client {
                 client.serverHandler.start();
                 currentScene = Scene.GAME;
             }
+            urlBarSelected = x > 400 && x < 800 && y > 375 && y < 375 + 30;
         }
         EndDrawing();
     }
@@ -250,7 +266,8 @@ public class Client {
 
         public void run() {
             try {
-                clientSocket = new Socket("127.0.0.1", 4200);
+                String[] parts = urlBar.split(":");
+                clientSocket = new Socket(parts[0], Integer.parseInt(parts[1]));
                 out = new ObjectOutputStream(clientSocket.getOutputStream());
                 in = new ObjectInputStream(clientSocket.getInputStream());
 
