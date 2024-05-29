@@ -29,7 +29,7 @@ public class Client {
 
     public Client() {
         camera = new Camera2D().zoom(1);
-        serverHandler = new ServerHandler();
+        serverHandler = new ServerHandler(this);
         world = new World();
     }
 
@@ -246,6 +246,12 @@ public class Client {
         private ObjectInputStream in;
         private int playerId;
         private boolean stopped = false;
+        private Client client;
+
+        public ServerHandler(Client client) {
+            super();
+            this.client = client;
+        }
 
         public void disconnect() throws IOException {
             out.writeObject(new Packet.Disconnect("Goodbye!"));
@@ -306,6 +312,18 @@ public class Client {
                         }
 
                         for (int id : update.removals) {
+                            Entity e = world.entities.get(id);
+                            if (
+                                e instanceof Player &&
+                                ((Player) e).playerId == playerId
+                            ) {
+                                System.out.println("[CLIENT] ded");
+                                client.currentScene = Scene.START;
+                                client.serverHandler = new ServerHandler(
+                                    client
+                                );
+                                disconnect();
+                            }
                             world.delete(id);
                         }
                     } else {
