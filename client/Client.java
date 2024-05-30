@@ -235,7 +235,9 @@ public class Client {
                 client.drawGame();
             }
         }
-        client.serverHandler.disconnect();
+        if (
+            client.currentScene == Scene.GAME
+        ) client.serverHandler.disconnect();
         CloseWindow();
     }
 
@@ -263,8 +265,10 @@ public class Client {
 
         public void send(Packet object) {
             try {
-                out.writeUnshared(object);
-                out.reset();
+                if (out != null) {
+                    out.writeUnshared(object);
+                    out.reset();
+                }
             } catch (Exception e) {
                 System.out.println("[CLIENT] failed to send packet " + e);
             }
@@ -281,6 +285,9 @@ public class Client {
                     Object next = in.readObject();
                     if (next instanceof Packet.Connect) {
                         playerId = ((Packet.Connect) next).playerId;
+                        // if (out == null || in == null) System.out.println(
+                        //     "screw you java"
+                        // );
                         send(
                             new Packet.SelectWeapons(
                                 weaponList[selectedWeapons[0]],
@@ -322,6 +329,8 @@ public class Client {
                                 client.serverHandler = new ServerHandler(
                                     client
                                 );
+                                client.player = -1;
+                                client.world = new World();
                                 disconnect();
                             }
                             world.delete(id);

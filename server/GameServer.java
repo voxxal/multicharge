@@ -52,17 +52,34 @@ public class GameServer {
                 for (ClientHandler handler : clientHandlers) {
                     handler.updateClient(update);
                 }
-                if(Math.random() < 0.003){
-                    world.add(new Obstacle.Cactus((float)Math.random()*5000, (float)Math.random()*5000));
-                }
-                else if(Math.random() < 0.003){
-                    world.add(new Obstacle.Tree((float)Math.random()*5000, (float)Math.random()*5000));
-                }
-                else if(Math.random() < 0.003){
-                    world.add(new Obstacle.Rock((float)Math.random()*5000, (float)Math.random()*5000));
-                }
-                else if(Math.random() < 0.000003){
-                    world.add(new Obstacle.Lake((float)Math.random()*5000, (float)Math.random()*5000));
+                if (Math.random() < 0.003) {
+                    world.add(
+                        new Obstacle.Cactus(
+                            (float) Math.random() * 5000,
+                            (float) Math.random() * 5000
+                        )
+                    );
+                } else if (Math.random() < 0.003) {
+                    world.add(
+                        new Obstacle.Tree(
+                            (float) Math.random() * 5000,
+                            (float) Math.random() * 5000
+                        )
+                    );
+                } else if (Math.random() < 0.003) {
+                    world.add(
+                        new Obstacle.Rock(
+                            (float) Math.random() * 5000,
+                            (float) Math.random() * 5000
+                        )
+                    );
+                } else if (Math.random() < 0.000003) {
+                    world.add(
+                        new Obstacle.Lake(
+                            (float) Math.random() * 5000,
+                            (float) Math.random() * 5000
+                        )
+                    );
                 }
             }
         }
@@ -96,12 +113,20 @@ public class GameServer {
                 if (!player0) {
                     playerId = 0;
                     player0 = true;
-                    player = new Player(0, 0, 0);
+                    player = new Player(
+                        (float) Math.random() * 500 + 1000,
+                        (float) Math.random() * 500 + 1000,
+                        0
+                    );
                     world.add(player);
                 } else if (!player1) {
                     playerId = 1;
                     player1 = true;
-                    player = new Player(0, 0, 1);
+                    player = new Player(
+                        (float) Math.random() * 500 + 1000,
+                        (float) Math.random() * 500 + 1000,
+                        1
+                    );
                     world.add(player);
                 } else {
                     out.writeObject(new Packet.Disconnect("lobby full"));
