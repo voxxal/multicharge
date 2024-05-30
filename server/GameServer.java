@@ -7,8 +7,9 @@ public class GameServer {
 
     private ServerSocket serverSocket;
     private boolean running;
-    private boolean player0 = false;
-    private boolean player1 = false;
+    private int nextPlayerId = 0;
+    // private boolean player0 = false;
+    // private boolean player1 = false;
     private World world = new World();
     private GameLoop loop;
     private ArrayList<ClientHandler> clientHandlers = new ArrayList<
@@ -110,27 +111,34 @@ public class GameServer {
             try {
                 out = new ObjectOutputStream(clientSocket.getOutputStream());
                 in = new ObjectInputStream(clientSocket.getInputStream());
-                if (!player0) {
-                    playerId = 0;
-                    player0 = true;
-                    player = new Player(
-                        (float) Math.random() * 500 + 1000,
-                        (float) Math.random() * 500 + 1000,
-                        0
-                    );
-                    world.add(player);
-                } else if (!player1) {
-                    playerId = 1;
-                    player1 = true;
-                    player = new Player(
-                        (float) Math.random() * 500 + 1000,
-                        (float) Math.random() * 500 + 1000,
-                        1
-                    );
-                    world.add(player);
-                } else {
-                    out.writeObject(new Packet.Disconnect("lobby full"));
-                }
+                playerId = nextPlayerId++;
+                player = new Player(
+                    (float) Math.random() * 500 + 1000,
+                    (float) Math.random() * 500 + 1000,
+                    playerId
+                );
+                world.add(player);
+                // if (!player0) {
+                //     playerId = 0;
+                //     player0 = true;
+                //     player = new Player(
+                //         (float) Math.random() * 500 + 1000,
+                //         (float) Math.random() * 500 + 1000,
+                //         0
+                //     );
+                //     world.add(player);
+                // } else if (!player1) {
+                //     playerId = 1;
+                //     player1 = true;
+                //     player = new Player(
+                //         (float) Math.random() * 500 + 1000,
+                //         (float) Math.random() * 500 + 1000,
+                //         1
+                //     );
+                //     world.add(player);
+                // } else {
+                //     out.writeObject(new Packet.Disconnect("lobby full"));
+                // }
 
                 (new Inbound()).start();
 
@@ -150,8 +158,8 @@ public class GameServer {
                 }
 
                 out.writeObject(new Packet.Disconnect("Goodbye!"));
-                if (playerId == 0) player0 = false;
-                else player1 = false;
+                // if (playerId == 0) player0 = false;
+                // else player1 = false;
                 in.close();
                 out.close();
                 clientSocket.close();
@@ -160,8 +168,8 @@ public class GameServer {
             } catch (Exception e) {
                 System.out.println("[SERVER] exception: " + e);
                 clientHandlers.remove(this);
-                if (playerId == 0) player0 = false;
-                else player1 = false;
+                // if (playerId == 0) player0 = false;
+                // else player1 = false;
                 world.remove(player);
             }
         }
